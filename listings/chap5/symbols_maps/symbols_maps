@@ -1,0 +1,16 @@
+00400000-00401000 r-xp 00000000 08:01 1176842 
+                           /home/sayon/repos/spbook/en/listings/chap5/main
+
+00600000-00601000 rwxp 00000000 08:01 1176842
+                            /home/sayon/repos/spbook/en/listings/chap5/main
+
+00601000-02601000 rwxp 00000000 00:00 0 
+
+7ffe19cf2000-7ffe19d13000 rwxp 00000000 00:00 0
+                          [stack]
+7ffe19d3e000-7ffe19d40000 r-xp 00000000 00:00 0
+                          [vdso]
+7ffe19d40000-7ffe19d42000 r--p 00000000 00:00 0
+                          [vvar]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0
+                          [vsyscall]

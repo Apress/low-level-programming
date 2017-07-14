@@ -1,0 +1,16 @@
+/usr/lib/x86_64-linux-gnu/crti.o:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000000000 <_init>:
+0:   sub    rsp, 0x8
+4:   mov    rax, QWORD PTR [rip+0x0]        # b <_init+0xb>
+b:   test   rax, rax
+e:   je     15 <_init+0x15>
+10: call   15 <_init+0x15>
+
+Disassembly of section .fini:
+
+0000000000000000 <_fini>:
+0:   sub    rsp, 0x8

@@ -1,0 +1,21 @@
+> nasm -f elf64 symbols.asm
+> nasm -f elf64 executable_object.asm
+> ld symbols.o executable_object.o -o main  
+> objdump -tf main
+
+main:     file format elf64-x86-64
+architecture: i386:x86-64, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x0000000000000000
+
+SYMBOL TABLE:
+00000000004000b0 l    d  .code  0000000000000000 .code
+00000000006000bc l    d  .data  0000000000000000 .data
+0000000000000000 l    df *ABS*  0000000000000000 executable_object.asm
+00000000006000c4 l       .data  0000000000000000 private
+00000000006000bc g       .data  0000000000000000 somewhere
+0000000000000000         *UND*  0000000000000000 _start
+00000000006000cc g       .data  0000000000000000 __bss_start
+00000000004000b0 g     F .code  0000000000000000 func
+00000000006000cc g       .data  0000000000000000 _edata
+00000000006000d0 g       .data  0000000000000000 _end

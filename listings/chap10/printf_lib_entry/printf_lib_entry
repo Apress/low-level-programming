@@ -1,0 +1,7 @@
+> readelf -s /lib/x86_64-linux-gnu/libc.so.6  | grep " printf"
+596: 0000000000050d50   161 FUNC    GLOBAL DEFAULT   12
+printf@@GLIBC_2.2.5
+1482: 0000000000050ca0    31 FUNC    GLOBAL DEFAULT   12
+printf_size_info@@GLIBC_2.2.5
+1890: 0000000000050480  2070 FUNC    GLOBAL DEFAULT   12
+printf_size@@GLIBC_2.2.5

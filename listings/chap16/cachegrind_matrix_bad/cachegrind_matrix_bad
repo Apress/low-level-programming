@@ -1,0 +1,21 @@
+> valgrind --tool=cachegrind ./matrix_init_ra
+
+==17022== Command: ./matrix_init_ra
+==17022== 
+--17022-- warning: L3 cache found, using its data for the LL simulation.
+==17022== 
+==17022== I   refs:      268,623,230
+==17022== I1  misses:            809
+==17022== LLi misses:            804
+==17022== I1  miss rate:        0.00%
+==17022== LLi miss rate:        0.00%
+==17022== 
+==17022== D   refs:       67,163,682  (40,974 rd   + 67,122,708 wr)
+==17022== D1  misses:     67,111,793  ( 2,384 rd   + 67,109,409 wr)
+==17022== LLd misses:     67,111,408  ( 2,034 rd   + 67,109,374 wr)
+==17022== D1  miss rate:        99.9% (   5.8%     +      100.0%  )
+==17022== LLd miss rate:        99.9% (   5.0%     +      100.0%  )
+==17022== 
+==17022== LL refs:        67,112,602  ( 3,193 rd   + 67,109,409 wr)
+==17022== LL misses:      67,112,212  ( 2,838 rd   + 67,109,374 wr)
+==17022== LL miss rate:         20.0% (   0.0%     +      100.0%  )

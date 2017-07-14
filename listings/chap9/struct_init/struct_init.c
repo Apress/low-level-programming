@@ -1,0 +1,3 @@
+struct S {char const* name; int value; }; 
+...
+struct S new_s = { "myname", 4 };

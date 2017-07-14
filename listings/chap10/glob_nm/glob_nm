@@ -1,0 +1,12 @@
+> nm main.o
+0000000000000000 T main
+                 U printf
+0000000000000004 C x
+
+> nm other.o
+0000000000000000 D x
+
+> nm main 
+0000000000400526 T main
+                 U printf@@GLIBC_2.2.5
+0000000000601038 D x

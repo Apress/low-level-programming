@@ -1,0 +1,5 @@
+>  cat p.c
+#include <stdio.h>
+
+> gcc -E -pedantic -ansi p.c | grep " printf"
+extern int printf (const char *__restrict __format, ...);

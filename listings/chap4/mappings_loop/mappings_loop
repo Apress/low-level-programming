@@ -1,0 +1,11 @@
+> nasm -felf64 -o main.o mappings_loop.asm 
+> ld -o main main.o
+> ./main &
+[1] 2186
+> cat /proc/2186/maps
+00400000-00401000 r-xp 00000000 08:01 144225 /home/stud/main
+00600000-00601000 rwxp 00000000 08:01 144225 /home/stud/main
+7fff11ac0000-7fff11ae1000 rwxp 00000000 00:00 0 [stack]
+7fff11bfc000-7fff11bfe000 r-xp 00000000 00:00 0 [vdso]
+7fff11bfe000-7fff11c00000 r--p 00000000 00:00 0 [vvar]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0 [vsyscall]

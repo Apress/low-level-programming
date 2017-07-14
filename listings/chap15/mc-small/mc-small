@@ -1,0 +1,11 @@
+;     glob_small[0] = 42;
+4004f0:	c6 05 49 0b 20 00 2a 	mov    BYTE PTR [rip+0x200b49],0x2a
+
+;    loc_small[0] = 42;
+4004fe:	c6 05 3b a2 b8 00 2a 	mov    BYTE PTR [rip+0xb8a23b],0x2a
+
+;    global_f();
+40050c:	e8 c5 ff ff ff       	call   4004d6 <global_f>
+
+;    local_f();
+400511:	e8 cb ff ff ff       	call   4004e1 <local_f>

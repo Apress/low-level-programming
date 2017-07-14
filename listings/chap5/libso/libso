@@ -1,0 +1,75 @@
+> nasm -f elf64 -o main.o main.asm
+> nasm -f elf64 -o libso.o libso.asm
+> ld -o main main.o -d libso.so 	
+> ld -shared -o libso.so libso.o --dynamic-linker=/lib64/ld-linux-x86-64.so.2
+> readelf -S libso.so
+There are 13 section headers, starting at offset 0x5a0:
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .hash             HASH             00000000000000e8  000000e8
+       000000000000002c  0000000000000004   A       2     0     8
+  [ 2] .dynsym           DYNSYM           0000000000000118  00000118
+       0000000000000090  0000000000000018   A       3     2     8
+  [ 3] .dynstr           STRTAB           00000000000001a8  000001a8
+       000000000000001e  0000000000000000   A       0     0     1
+  [ 4] .rela.dyn         RELA             00000000000001c8  000001c8
+       0000000000000018  0000000000000018   A       2     0     8
+  [ 5] .text             PROGBITS         00000000000001e0  000001e0
+       000000000000001c  0000000000000000  AX       0     0     16
+  [ 6] .rodata           PROGBITS         00000000000001fc  000001fc
+       000000000000001a  0000000000000000   A       0     0     4
+  [ 7] .eh_frame         PROGBITS         0000000000000218  00000218
+       0000000000000000  0000000000000000   A       0     0     8
+  [ 8] .dynamic          DYNAMIC          0000000000200218  00000218
+       00000000000000f0  0000000000000010  WA       3     0     8
+  [ 9] .got.plt          PROGBITS         0000000000200308  00000308
+       0000000000000018  0000000000000008  WA       0     0     8
+  [10] .shstrtab         STRTAB           0000000000000000  00000320
+       0000000000000065  0000000000000000           0     0     1
+  [11] .symtab           SYMTAB           0000000000000000  00000388
+       00000000000001c8  0000000000000018          12    15     8
+  [12] .strtab           STRTAB           0000000000000000  00000550
+       000000000000004f  0000000000000000           0     0     1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), l (large)
+  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+
+> readelf -S main
+There are 14 section headers, starting at offset 0x650:
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .interp           PROGBITS         0000000000400158  00000158
+       000000000000000f  0000000000000000   A       0     0     1
+  [ 2] .hash             HASH             0000000000400168  00000168
+       0000000000000028  0000000000000004   A       3     0     8
+  [ 3] .dynsym           DYNSYM           0000000000400190  00000190
+       0000000000000078  0000000000000018   A       4     1     8
+  [ 4] .dynstr           STRTAB           0000000000400208  00000208
+       0000000000000027  0000000000000000   A       0     0     1
+  [ 5] .rela.plt         RELA             0000000000400230  00000230
+       0000000000000018  0000000000000018  AI       3     6     8
+  [ 6] .plt              PROGBITS         0000000000400250  00000250
+       0000000000000020  0000000000000010  AX       0     0     16
+  [ 7] .text             PROGBITS         0000000000400270  00000270
+       0000000000000014  0000000000000000  AX       0     0     16
+  [ 8] .eh_frame         PROGBITS         0000000000400288  00000288
+       0000000000000000  0000000000000000   A       0     0     8
+  [ 9] .dynamic          DYNAMIC          0000000000600288  00000288
+       0000000000000110  0000000000000010  WA       4     0     8
+  [10] .got.plt          PROGBITS         0000000000600398  00000398
+       0000000000000020  0000000000000008  WA       0     0     8
+  [11] .shstrtab         STRTAB           0000000000000000  000003b8
+       0000000000000065  0000000000000000           0     0     1
+  [12] .symtab           SYMTAB           0000000000000000  00000420
+       00000000000001e0  0000000000000018          13    15     8
+  [13] .strtab           STRTAB           0000000000000000  00000600
+       000000000000004d  0000000000000000           0     0     1

@@ -1,0 +1,3 @@
+> gcc -c -std=c89 -pedantic -Wall -o main.o main.c 
+> gcc -c -std=c89 -pedantic -Wall -o other.o other.c 
+> gcc -o main main.o other.o

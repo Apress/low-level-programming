@@ -1,0 +1,20 @@
+> nasm -f elf64 symbols.asm
+> nasm -f elf64 executable_object.asm
+> ld symbols.o executable_object.o -o main  
+> readelf -l main 
+Elf file type is EXEC (Executable file)
+Entry point 0x4000d8
+There are 2 program headers, starting at offset 64
+
+Program Headers:
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  LOAD           0x0000000000000000 0x0000000000400000 0x0000000000400000
+                 0x00000000000000e3 0x00000000000000e3  R E    200000
+  LOAD           0x00000000000000e4 0x00000000006000e4 0x00000000006000e4
+                 0x0000000000000010 0x000000000200001c  RW     200000
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .text
+   01     .data .bss

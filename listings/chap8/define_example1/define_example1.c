@@ -1,0 +1,1 @@
+#define MY_CONST_VALUE 42

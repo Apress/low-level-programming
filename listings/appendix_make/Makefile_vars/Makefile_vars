@@ -1,0 +1,17 @@
+AS = nasm
+LD = ld
+ASFLAGS = -f elf64 
+
+program: main.o lib.o
+    $(LD) -o program main.o lib.o
+
+lib.o: lib.asm
+    $(AS) $(ASFLAGS) -o lib.o lib.asm
+
+main.o: main.asm
+    $(AS) $(ASFLAGS) -o main.o main.asm
+
+clean: 
+    rm main.o lib.o program
+
+.PHONY: clean

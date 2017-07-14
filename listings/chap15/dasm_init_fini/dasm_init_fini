@@ -1,0 +1,34 @@
+Disassembly of section .init:
+
+00000000004005d8 <_init>:
+4005d8:	sub    rsp,0x8
+4005dc:	mov    rax,QWORD PTR [rip+0x200a15]        # 600ff8 <_DYNAMIC+0x1e0>
+4005e3:	test   rax,rax
+4005e6:	je     4005ed <_init+0x15>
+4005e8:	call   400650 <__libc_start_main@plt+0x10>
+4005ed:	add    rsp,0x8
+4005f1:	ret    
+
+Disassembly of section .text:
+
+0000000000400660 <_start>:
+400660:	xor    ebp,ebp
+400662:	mov    r9,rdx
+400665:	pop    rsi
+400666:	mov    rdx,rsp
+400669:	and    rsp,0xfffffffffffffff0
+40066d:	push   rax
+40066e:	push   rsp
+40066f:	mov    r8,0x400800
+400676:	mov    rcx,0x400790
+40067d:	mov    rdi,0x400756
+400684:	call   400640 <__libc_start_main@plt>
+400689:	hlt    
+
+Disassembly of section .fini:
+
+0000000000400804 <_fini>:
+400804:	sub    rsp,0x8
+400808:	add    rsp,0x8
+40080c:	ret    
+

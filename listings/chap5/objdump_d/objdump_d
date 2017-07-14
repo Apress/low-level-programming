@@ -1,0 +1,21 @@
+> objdump -D -M intel-mnemonic main.o
+main.o:     file format elf64-x86-64
+Disassembly of section .data:
+0000000000000000 <datavar1>:        ...
+0000000000000008 <datavar2>:        ...
+Disassembly of section .bss:
+0000000000000000 <bssvar1>:        ...
+0000000002000000 <bssvar2>:        ...
+Disassembly of section .text:
+0000000000000000 <_start-0x28>:
+   0:   48 b8 00 00 00 00 00    movabs rax,0x0
+   7:   00 00 00
+   a:   48 b8 00 00 00 00 00    movabs rax,0x0
+  11:   00 00 00
+  14:   48 b8 00 00 00 00 00    movabs rax,0x0
+  1b:   00 00 00
+  1e:   48 ba 00 00 00 00 00    movabs rdx,0x0
+  25:   00 00 00
+0000000000000028 <_start>:
+  28:   c3                      ret
+0000000000000029 <textlabel>:

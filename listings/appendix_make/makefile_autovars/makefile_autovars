@@ -1,0 +1,16 @@
+CC = gcc
+CFLAGS = -std=c11 -Wall
+LD = gcc 
+
+all: main
+
+main: main.o lib.o
+	$(LD) $^ -o $@
+
+%.o: %.c %.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean: 
+	rm -f *.o main
+
+.PHONY: clean

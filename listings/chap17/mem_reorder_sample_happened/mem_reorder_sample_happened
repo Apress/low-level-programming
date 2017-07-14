@@ -1,0 +1,12 @@
+x = 0;
+y = 0;
+
+proc1() {
+    load y
+    x = 1;
+}
+
+proc2() {
+    load x
+    y = 1;
+}

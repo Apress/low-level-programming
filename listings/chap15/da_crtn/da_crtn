@@ -1,0 +1,14 @@
+/usr/lib/x86_64-linux-gnu/crtn.o:     file format elf64-x86-64
+
+Disassembly of section .init:
+
+0000000000000000 <.init>:
+0:	add    rsp,0x8
+4:	ret    
+
+Disassembly of section .fini:
+
+0000000000000000 <.fini>:
+0:	add    rsp,0x8
+4:	ret    
+

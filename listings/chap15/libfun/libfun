@@ -1,0 +1,35 @@
+00000000000006d0 <libfun>:
+
+# Function prologue 
+ 6d0:	55                   	push   rbp
+ 6d1:	48 89 e5             	mov    rbp,rsp
+ 6d4:	48 83 ec 10          	sub    rsp,0x10
+
+# Second argument for printf( "param: %d\n", value );
+ 6d8:	89 7d fc             	mov    DWORD PTR [rbp-0x4],edi
+ 6db:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+ 6de:	89 c6                	mov    esi,eax
+
+# First argument for printf( "param: %d\n", value );
+ 6e0:	48 8d 3d 32 00 00 00 	lea    rdi,[rip+0x32]     
+
+# Printf call; zero XMM registers used
+ 6e7:	b8 00 00 00 00       	mov    eax,0x0
+ 6ec:	e8 bf fe ff ff       	call   5b0 <printf@plt>
+
+# Second argument for printf( "global: %d\n", global );
+ 6f1:	48 8b 05 e0 08 20 00 	mov    rax,QWORD PTR [rip+0x2008e0]  
+ 6f8:	8b 00                	mov    eax,DWORD PTR [rax]
+ 6fa:	89 c6                	mov    esi,eax
+
+# First argument for printf( "global: %d\n", global );
+ 6fc:	48 8d 3d 21 00 00 00 	lea    rdi,[rip+0x21]    
+
+# Printf call; zero XMM registers used
+ 703:	b8 00 00 00 00       	mov    eax,0x0
+ 708:	e8 a3 fe ff ff       	call   5b0 <printf@plt>
+
+# Function epilogue
+ 70d:	90                   	nop
+ 70e:	c9                   	leave  
+ 70f:	c3                   	ret    

@@ -1,0 +1,6 @@
+> export LD_PRELOAD=
+> ./a.out
+Hello, world!
+> export LD_PRELOAD=$PWD/prelib.so
+> ./a.out
+We took control over your C library!

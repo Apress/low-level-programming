@@ -1,0 +1,7 @@
+> readelf --relocs main.o 
+Relocation section '.rela.text' at offset 0x440 contains 4 entries:
+  Offset          Info       Type            Sym. Value    Name+Addend
+000000000002  000200000001 R_X86_64_64       0000000000000000 .data + 0
+00000000000c  000300000001 R_X86_64_64       0000000000000000 .bss + 0
+000000000016  000300000001 R_X86_64_64       0000000000000000 .bss + 2000000
+000000000020  000200000001 R_X86_64_64       0000000000000000 .data + 8    

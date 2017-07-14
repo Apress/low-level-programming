@@ -1,0 +1,21 @@
+mutex m1, m2;
+
+thread1() {
+    lock( m1 );
+    while ( mutex_trylock m2 indicates LOCKED ) {
+        unlock( m1 );
+        wait for some time; 
+        lock( m1 );
+    }
+    // now we are good because both locks are taken
+}
+
+thread2() {
+    lock( m2 );
+    while ( mutex_trylock m1 indicates LOCKED ) {
+        unlock( m2 );
+        wait for some time; 
+        lock( m2 );
+    }
+    // now we are good because both locks are taken
+}

@@ -1,0 +1,13 @@
+
+main: main.o lib.so 
+	ld --dynamic-linker=/lib64/ld-linux-x86-64.so.2 main.o lib.so -o main
+
+lib.so: lib.o
+	ld -shared lib.o -o lib.so
+
+lib.o: 
+	nasm -felf64 lib.asm -o lib.o
+
+main.o: main.asm
+	nasm -felf64 main.asm -o main.o
+

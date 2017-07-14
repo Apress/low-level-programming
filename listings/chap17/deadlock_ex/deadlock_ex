@@ -1,0 +1,15 @@
+mutex A, B;
+
+thread1 () {
+    lock(A);
+    lock(B);
+    unlock(B);
+    unlock(A);
+}
+
+thread2() {
+    lock(B);
+    lock(A);
+    unlock(A);
+    unlock(B);
+}

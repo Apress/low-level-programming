@@ -1,0 +1,6 @@
+> nm main.o   
+0000000000000000 b bssvar                                
+0000000000000000 d datavar                               
+                 U somewhere                             
+000000000000000a T _start                                
+000000000000000b t textlabel                             

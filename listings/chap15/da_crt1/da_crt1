@@ -1,0 +1,18 @@
+/usr/lib/x86_64-linux-gnu/crt1.o:     file format elf64-x86-64
+
+Disassembly of section .text:
+
+0000000000000000 <_start>:
+0: 	 	xor    ebp,ebp
+2: 	 	mov    r9,rdx
+5: 	 	pop    rsi
+6: 	 	mov    rdx,rsp
+9: 	 	and    rsp,0xfffffffffffffff0
+d: 	 	push   rax
+e: 	 	push   rsp
+f: 	 	mov    r8,0x0
+16:	 	mov    rcx,0x0
+1d:	 	mov    rdi,0x0
+24:	 	call   29 <_start+0x29>
+29:	 	hlt    
+
