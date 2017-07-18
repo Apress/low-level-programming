@@ -12,7 +12,7 @@ Download the files as a zip using the green button, or clone the repository to y
 This repository holds the following information:
 
 * Book listings in [listings](listings)
-* Answers to book questions in [questions/answers.md](questions/answers.md)
+* Answers to book questions in [questions/answers](questions/answers)
 * Sample solutions for assignments [assignments](assignments)
 * FAQ about system setup at [FAQ.md](FAQ.md)
 * The links to preconfigured Debian Linux virtual machines (to be published)
