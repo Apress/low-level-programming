@@ -44,7 +44,7 @@ NASM? Check NASM documentation.
 
 18. What is `test` equal to after each of these instructions?
 
-`"asm
+```asm
 section .data
 test: dq -1
 
@@ -54,13 +54,13 @@ mov byte[test], 1	;1
 mov word[test], 1	;2
 mov dword[test], 1	;4
 mov qword[test], 1	;8
-`"
+```
 
 
 19. Can you spot a bug or two in Listing `strlen_bug1. asm`?
 When will they occur?
 
-`"asm
+```asm
 global _start
 
 section .data
@@ -86,7 +86,7 @@ mov rdi, rax
 
 mov rax, 60
 syscall
-`"
+```
 
 
 20. \labelq:tail_call_asm
@@ -116,7 +116,7 @@ Read about co-routines.
 25. How can you work with hardware stack? Describe the instructions you can use.
 
 26. Which ones of these instructions are incorrect and why?
-`"asm
+```asm
 mov [rax], 0
 cmp [rdx], bl
 mov bh, bl
@@ -130,7 +130,7 @@ mov rcx, [rax + rbx + rdx]
 mov r9, [r9 + 8*rax]
 mov [r8+r7+10], 6
 mov [r8+r7+10], r6
-`"
+```
 
 27. Enumerate the Callee Saved Registers
 
@@ -254,11 +254,11 @@ documentation.
 
 69. Check the preprocessor output on file, shown in Listing
 `defining_in_cla.asm`:
-`"asm
+```asm
 %ifdef flag
 hellostring: db "Hello",0
 %endif 
-`"
+```
 
 70. Modify the macro the way it would produce a bit table, taking 8 times less
 space in memory. Add a function that will check number for primarity and return
@@ -484,10 +484,10 @@ contents from stack). Write a word that will print "Hello, world!" in
 
 160. What will be the value of `x`?
 
-`"c
+```c
 int x = 10;
 size_t t = sizeof(x=90);
-`"
+```
 
 161. How to compute how many elements does an array store using `sizeof`?
 
@@ -608,19 +608,19 @@ size_t t = sizeof(x=90);
 
 215. In languages such as C#, the code like the following is possible:
 
-    `"c
+    ```c
 var count = 0;
 mylist.Foreach( x => count += 1 );
-    `"
+    ```
 
     Here we launch an anonymous function (that is, a function which has no
     name, but whose address can be manipulated, for example, passed to other
     function) for each element of a list.  The function is written as `x => count += 1` and is
     equivalent of:
     
-    `"c
+    ```c
         void no_name( int x )  count += 1;  
-    `"
+    ```
     The interesting thing about it is,
     that this function is aware of some of the local variables of the caller
     and thus can modify them. 
@@ -745,7 +745,7 @@ are responsible for.
     `setjmp` and `longjmp`? 
 
 266. What will be the result of launching the code shown in
-            Listing~`printf_vuln.c` on input \\
+            Listing~`printf_vuln.c` on input 
             `"%s %s %s %s %s"`?
         
 267. What are `xmm` registers? How many are they? 
