@@ -13,6 +13,7 @@ This repository holds the following information:
 
 * Book listings in [listings](listings)
 * Answers to book questions in [questions/answers](questions/answers)
+* Errors and typos are collected in [errata.md](errata.md)
 * Sample solutions for assignments [assignments](assignments)
 * FAQ about system setup at [FAQ.md](FAQ.md)
 * The links to preconfigured Debian Linux virtual machines (to be published)

@@ -666,430 +666,449 @@ mylist.Foreach( x => count += 1 );
 
 233. How to concatenate string literals in compile time?
 
-234. What is the data stream?
+234. How to get the descriptor from stream?
 
-235. Is there a difference between data stream and a descriptor?
+235. Are there any streams opened when program starts?
 
-236. How to get the descriptor from stream?
+236. What is the difference between binary and text streams? 
 
-237. Are there any streams opened when program starts?
+237. How to open a binary stream? A text stream?
 
-238. What is the difference between binary and text streams? 
-
-239. How to open a binary stream? A text stream?
-
-240. Write a recursive descent parser for floating point arithmetic with
+238. Write a recursive descent parser for floating point arithmetic with
 multiplication, subtraction and addition. For this assignment, we consider
 no negative literals exist (so instead of writing `-1. 20` we will write
 `0-1. 20`.
 
 
-241. What is the language syntax? 
+239. What is the language syntax? 
 
-242. What are grammars used for?
+240. What are grammars used for?
 
-243. What does a grammar consist of? 
+241. What does a grammar consist of? 
 
-244. What is BNF?
+242. What is BNF?
 
-245. How to write a recursive descent parser having the grammar description in BNF?
+243. How to write a recursive descent parser having the grammar description in BNF?
 
-246. How to incorporate priorities in grammar description?
+244. How to incorporate priorities in grammar description?
 
-247. What are the levels of Chomsky hierarchy? 
+245. What are the levels of Chomsky hierarchy? 
 
-248. Why are regular languages less expressive than context-free grammars?
+246. Why are regular languages less expressive than context-free grammars?
 
-249. What is the lexical analysis?
+247. What is the lexical analysis?
 
-250. What is the language semantic?
+248. What is the language semantic?
 
-251. What is the undefined behavior?
+249. What is the undefined behavior?
 
-252. What is unspecified behavior and how is it different from undefined behavior?
+250. What is unspecified behavior and how is it different from undefined behavior?
 
-253. What are the cases of undefined behavior in C?
+251. What are the cases of undefined behavior in C?
 
-254. What are the cases of unspecified behavior in C?
+252. What are the cases of unspecified behavior in C?
 
-255. What are sequence points?
+253. What are sequence points?
 
-256. What is pragmatics?
+254. What is pragmatics?
 
-257. What is the data structure padding? Is it portable?
+255. What is the data structure padding? Is it portable?
 
-258. What is the alignment? How can it be controlled in C11?
+256. What is the alignment? How can it be controlled in C11?
 
-259. Read BMP file specification to identify what these fields 
-are responsible for. 
+257. Read BMP file specification to identify what these fields
+ are responsible for: 
 
-260. Implement blurring. It is done in a very simple way: for each pixel you compute
+ ```c
+#include <stdint.h>
+struct __attribute__((packed))
+bmp_header 
+    uint16_t bfType;
+    uint32_t bfileSize;
+    uint32_t bfReserved;
+    uint32_t bOffBits;
+    uint32_t biSize;
+
+    uint32_t biWidth;
+    uint32_t biHeight;
+    uint16_t biPlanes;
+    uint16_t biBitCount;
+    uint32_t biCompression;
+    uint32_t biSizeImage;
+    uint32_t biXPelsPerMeter;
+    uint32_t biYPelsPerMeter;
+    uint32_t biClrUsed;
+    uint32_t biClrImportant;
+;
+ ```
+
+258. Implement blurring. It is done in a very simple way: for each pixel you compute
     its new components as an average in a $3 \times 3$ pixels window (called 
     __kernel__). The border
     pixels are left untouched. 
 
-261. Implement rotation to an arbitrary angle (not only 90 or 180 degrees).
+259. Implement rotation to an arbitrary angle (not only 90 or 180 degrees).
 
-262. Implement "dilate" and "erode" transformations. They are similar to the 
+260. Implement "dilate" and "erode" transformations. They are similar to the 
     blur, but instead of doing an average in a window, you have to compute the
     minimal (erode) or maximal  (dilate) component values.
 
-263. Read about the `movq`, `movdqa` and `movdqu` instructions in
+261. Read about the `movq`, `movdqa` and `movdqu` instructions in
 [Intel 64 and IA-32 Architectures Software Developer's Manual].  
 
-264. Can you imagine a situation, when a function, not a macro, accepts a
+262. Can you imagine a situation, when a function, not a macro, accepts a
     variable by name (syntactically) and changes it? What should be the 
     type of such variable?
 
-265. How do you implement "try--catch"-alike constructions using 
+263. How do you implement "try--catch"-alike constructions using 
     `setjmp` and `longjmp`? 
 
-266. What will be the result of launching the code shown in
+264. What will be the result of launching the code shown in
             Listing~`printf_vuln.c` on input 
             `"%s %s %s %s %s"`?
         
-267. What are `xmm` registers? How many are they? 
+265. What are `xmm` registers? How many are they? 
 
-268. What are SIMD instructions? 
+266. What are SIMD instructions? 
 
-269. Why do some SSE instructions require the memory operands to be aligned?
+267. Why do some SSE instructions require the memory operands to be aligned?
 
-270. What registers are used to pass arguments to functions? 
+268. What registers are used to pass arguments to functions? 
 
-271. When passing arguments to the function, why is `rax` sometimes 
+269. When passing arguments to the function, why is `rax` sometimes 
         used?
 
-272. How is `rbp` register used?
+270. How is `rbp` register used?
 
-273. What is a stack frame?
+271. What is a stack frame?
 
-274. Why aren't we addressing the local variables relative to `rsp`?
+272. Why aren't we addressing the local variables relative to `rsp`?
 
-275. What are prologue and epilogue?
+273. What are prologue and epilogue?
 
-276. What is the purpose of `enter` and `leave` instructions?
+274. What is the purpose of `enter` and `leave` instructions?
 
-277. Describe in details, how is the stack frame changing during the function 
+275. Describe in details, how is the stack frame changing during the function 
         execution.
 
-278. What is the red zone?
+276. What is the red zone?
 
-279. How to declare and use a function with variable number of arguments?
+277. How to declare and use a function with variable number of arguments?
 
-280. Which kind of context is `va_list` holding?
+278. Which kind of context is `va_list` holding?
 
-281. Why are functions such as `vfprintf` used?
+279. Why are functions such as `vfprintf` used?
 
-282. What is the purpose of `volatile` variables?
+280. What is the purpose of `volatile` variables?
 
-283. Why only `volatile` stack variables persist after `longjmp`?
+281. Why only `volatile` stack variables persist after `longjmp`?
 
-284. Are all local variables allocated on stack?
+282. Are all local variables allocated on stack?
 
-285. What is `setjmp` used for? 
+283. What is `setjmp` used for? 
 
-286. What is the return value of `setjmp`?
+284. What is the return value of `setjmp`?
 
-287. What is the use of `restrict`?  
+285. What is the use of `restrict`?  
 
-288. Can `restrict` be ignored by the compiler? 
+286. Can `restrict` be ignored by the compiler? 
 
-289. How can we achieve the same result without using `restrict` keyword?
+287. How can we achieve the same result without using `restrict` keyword?
 
-290. Explain the mechanism of exploiting stack buffer overrun.
+288. Explain the mechanism of exploiting stack buffer overrun.
 
-291. When is the `printf` usage unsafe?
+289. When is the `printf` usage unsafe?
 
-292. What is a security cookie? Does it solve program crashes on buffer overflow? 
+290. What is a security cookie? Does it solve program crashes on buffer overflow? 
 
-293. Read in `man ld.so` about environment variables (such as
+291. Read in `man ld.so` about environment variables (such as
     `LD_BIND_NOT`), which can alter the loader behavior.
 
-294. Refer to the assignment Use this technique to test your `malloc`
+292. Refer to the assignment Use this technique to test your `malloc`
     implementation against some standard utilities from `coreutils`.
 
 
-295. Read about `dlopen`, `dlsym`, `dlclose` functions. 
+293. Read about `dlopen`, `dlsym`, `dlclose` functions. 
 
-296. Perform an experiment. Omit the `wrt ..plt` construction for the call
+294. Perform an experiment. Omit the `wrt ..plt` construction for the call
     and recompile everything. Then use `objdump -D -Mintel-mnemonic` on
     the resulting `main` executable to check, whether the PLT is still in
     game or not. Try to launch it.
 
-297. What is the difference between static and dynamic linkage? 
+295. What is the difference between static and dynamic linkage? 
 
-298. What does the dynamic linker do? 
+296. What does the dynamic linker do? 
 
-299. Can we resolve all dependencies at the link time? What kind of system should 
+297. Can we resolve all dependencies at the link time? What kind of system should 
 we be working with in order for this to be possible?
 
-300. Should we always relocate __.data__ section?  
+298. Should we always relocate __.data__ section?  
 
-301. Should we always relocate __.text__ section? 
+299. Should we always relocate __.text__ section? 
 
-302. What is PIC? 
+300. What is PIC? 
 
-303. Can we share __.text__ section between processes when it is being relocated?
+301. Can we share __.text__ section between processes when it is being relocated?
 
-304. Can we share __.data__ section between processes when it is being relocated?
+302. Can we share __.data__ section between processes when it is being relocated?
 
-305. Can we share __.data__ section when it is being relocated?
+303. Can we share __.data__ section when it is being relocated?
 
-306. Why are we compiling dynamic libraries with `-fPIC` flag? 
+304. Why are we compiling dynamic libraries with `-fPIC` flag? 
 
-307. Write a simple dynamic library in C from scratch and demonstrate calling function from it. 
+305. Write a simple dynamic library in C from scratch and demonstrate calling function from it. 
 
-308. What is `ldd` used for? 
+306. What is `ldd` used for? 
 
-309. Where are the libraries searched? 
+307. Where are the libraries searched? 
 
-310. What is the environment variable `LD_LIBRARY_PATH` for? 
+308. What is the environment variable `LD_LIBRARY_PATH` for? 
 
-311. What is GOT? Why is it needed? 
+309. What is GOT? Why is it needed? 
 
-312. What makes GOT usage effective? 
+310. What makes GOT usage effective? 
 
-313. How comes that position independent code can address GOT directly, but can not address global variables directly? 
+311. How comes that position independent code can address GOT directly, but can not address global variables directly? 
 
-314. Is GOT unique for each process? 
+312. Is GOT unique for each process? 
 
-315. What is PLT?
+313. What is PLT?
 
-316. Why do not we use GOT to call functions from different objects (or do we)?  
+314. Why do not we use GOT to call functions from different objects (or do we)?  
 
-317. What does the initial GOT entry for a function point at? 
+315. What does the initial GOT entry for a function point at? 
 
-318. How to preload a library and what can it be used for? 
+316. How to preload a library and what can it be used for? 
 
-319. In assembly, how is the symbol addressed if 
+317. In assembly, how is the symbol addressed if 
     it is defined in the executable and accessed from there?
 
-320. In assembly, how is the symbol addressed if 
+318. In assembly, how is the symbol addressed if 
     it is defined in the library and accessed from there?
 
-321. In assembly, how is the symbol addressed if 
+319. In assembly, how is the symbol addressed if 
     it is defined in the executable and accessed from everywhere?
 
-322. In assembly, how is the symbol addressed if 
+320. In assembly, how is the symbol addressed if 
     it is defined in the library and accessed from everywhere? 
 
-323. How to control visibility of a symbol in dynamic library? How to make it private
+321. How to control visibility of a symbol in dynamic library? How to make it private
     for the library, but accessible from anywhere in it?
 
-324. Why do people sometimes write wrapper functions for those used in library? 
+322. Why do people sometimes write wrapper functions for those used in library? 
 
-325. How to link against a library that is stored in `libdir`? 
+323. How to link against a library that is stored in `libdir`? 
 
-326. What is a code model and why do we care about them? 
+324. What is a code model and why do we care about them? 
 
-327. What limitations impose the small code model? 
+325. What limitations impose the small code model? 
 
-328. Which overhead does the large code model carry?
+326. Which overhead does the large code model carry?
 
-329. What is the compromise between large and small code model? 
+327. What is the compromise between large and small code model? 
 
-330. When is the medium model most useful? 
+328. When is the medium model most useful? 
 
-331. How do large code models differ for PIC and non-PIC code? 
+329. How do large code models differ for PIC and non-PIC code? 
 
-332. How do medium code models differ for PIC and non-PIC code?  
+330. How do medium code models differ for PIC and non-PIC code?  
 
-333. What is the instruction pipeline and superscalar architecture?
+331. What is the instruction pipeline and superscalar architecture?
 
-334. Take a look at the GCC `man` pages, section "Optimizations".
+332. Take a look at the GCC `man` pages, section "Optimizations".
 
-335. Read about methods of calculating the confidence interval and calculate the
+333. Read about methods of calculating the confidence interval and calculate the
     95\% confidence interval for a reasonably high number of measurements.
 
 
-336. What GCC options control the optimization options globally?
+334. What GCC options control the optimization options globally?
 
-337. What kinds of optimizations can potentially bring the most benefits? 
+335. What kinds of optimizations can potentially bring the most benefits? 
 
-338. What kinds of benefits and disadvantages can omitting frame pointer bring?
+336. What kinds of benefits and disadvantages can omitting frame pointer bring?
 
-339. How a tail recursive function is different from an ordinary recursive function?
+337. How a tail recursive function is different from an ordinary recursive function?
 
-340. Can any recursive function be rewritten as a tail recursive without using
+338. Can any recursive function be rewritten as a tail recursive without using
         additional data structures?
 
-341. What is common subexpression elimination? How does it affect our code writing?
+339. What is common subexpression elimination? How does it affect our code writing?
         
 
-342. What is constant propagation? 
+340. What is constant propagation? 
 
-343. Why should we mark functions `static` whenever we can to help the compiler
+341. Why should we mark functions `static` whenever we can to help the compiler
         optimizations?
 
-344. What benefits does named return value optimization bring? 
+342. What benefits does named return value optimization bring? 
 
-345. What is a branch prediction?  
+343. What is a branch prediction?  
 
-346. Read about Dynamic Branch Prediction, Global and Local History Tables. 
+344. Read about Dynamic Branch Prediction, Global and Local History Tables. 
 
-347. Check the notes on branch prediction for your CPU in [Intel  64 and IA-32 Architectures Optimization Reference Manual].
+345. Check the notes on branch prediction for your CPU in [Intel  64 and IA-32 Architectures Optimization Reference Manual].
 
-348. What is an execution unit and why do we care about them? 
+346. What is an execution unit and why do we care about them? 
 
-349. How are AVX instruction speed and the amount of execution units related? 
+347. How are AVX instruction speed and the amount of execution units related? 
 
-350. What kinds of memory accessing patterns are good? 
+348. What kinds of memory accessing patterns are good? 
 
-351. Why do we have many cache levels? 
+349. Why do we have many cache levels? 
 
-352. In which cases might `prefetch` bring performance gains and why? 
+350. In which cases might `prefetch` bring performance gains and why? 
 
-353. What SSE instructions are used for? 
+351. What SSE instructions are used for? 
 
-354. Why most SSE instructions require aligned operands? 
+352. Why most SSE instructions require aligned operands? 
 
-355. How to copy data from general purpose registers to `xmm` registers? 
+353. How to copy data from general purpose registers to `xmm` registers? 
 
-356. In which cases using SIMD instructions is worth it?
+354. In which cases using SIMD instructions is worth it?
 
-357. Read `man` pages for the functions listed above.
+355. Read `man` pages for the functions listed above.
 
-358. What will `sysconf(_SC_NPROCESSORS_ONLN)` return?
+356. What will `sysconf(_SC_NPROCESSORS_ONLN)` return?
 
-359. Experiment with the number of threads and find the optimal one in your own
+357. Experiment with the number of threads and find the optimal one in your own
     environment.  
 
-360. Read about functions: `pthread_self` and `pthread_equal`. Why can not we
+358. Read about functions: `pthread_self` and `pthread_equal`. Why can not we
         compare threads with a simple equality operator `==`?
 
-361. What is a recursive mutex? How is it different from an ordinary one?
+359. What is a recursive mutex? How is it different from an ordinary one?
 
-362. What are Coffman's conditions? How can they be used to diagnose deadlocks? 
+360. What are Coffman's conditions? How can they be used to diagnose deadlocks? 
 
-363. How to use `Helgrind` to detect deadlocks?
+361. How to use `Helgrind` to detect deadlocks?
 
-364. What is a named semaphore? Why should it be mandatory unlinked even if the
+362. What is a named semaphore? Why should it be mandatory unlinked even if the
 process is terminated?  
 
-365. What is the ABA problem?
+363. What is the ABA problem?
 
-366. Read the description of `cmpxchg` in Intel docs [Intel 64 and IA-32 Architectures Software Developer's Manual].
+364. Read the description of `cmpxchg` in Intel docs [Intel 64 and IA-32 Architectures Software Developer's Manual].
 
-367. Read `man` pages for `atomic_flag_test_and_set` and
+365. Read `man` pages for `atomic_flag_test_and_set` and
     `atomic_flag_clear`.
 
 
-368. Which problems emerge from multithreading usage? 
+366. Which problems emerge from multithreading usage? 
 
-369. What makes multiple threads worth it?
+367. What makes multiple threads worth it?
 
-370. Should we use multithreading even if the program does not perform many 
+368. Should we use multithreading even if the program does not perform many 
         computations? If yes, give a use case. 
 
-371. What is compiler reordering? Why are they performed?
+369. What is compiler reordering? Why are they performed?
  
  
-372. Why the single threaded program have no means to observe compiler memory 
+370. Why the single threaded program have no means to observe compiler memory 
             reorderings?
     
-373. What are some kinds of memory models? 
+371. What are some kinds of memory models? 
 
-374. How to write the code that is sequentially consistent with regards to manipulation
+372. How to write the code that is sequentially consistent with regards to manipulation
         of two shared variables?  
 
-375. Are `volatile` variables sequentially consistent?
+373. Are `volatile` variables sequentially consistent?
 
-376. Show an example when memory reorderings can lead to a very unexpected program behavior. 
+374. Show an example when memory reorderings can lead to a very unexpected program behavior. 
 
-377. What are the arguments against usage of volatile variables? 
+375. What are the arguments against usage of volatile variables? 
 
-378. What is a memory barrier? 
+376. What is a memory barrier? 
 
-379. What kind of memory barriers do you know? 
+377. What kind of memory barriers do you know? 
 
-380. What is acquire semantics? 
+378. What is acquire semantics? 
 
-381. What is release semantics? 
+379. What is release semantics? 
 
-382. What is a data dependency? Can you write code where data dependency does not
+380. What is a data dependency? Can you write code where data dependency does not
         force an order on operations? 
 
-383. What is the difference between `mfence`, `sfence` and `lfence`? 
+381. What is the difference between `mfence`, `sfence` and `lfence`? 
 
-384. Why do we need other instructions than `mfence`? 
+382. Why do we need other instructions than `mfence`? 
 
-385. Which function calls act as compiler barriers? 
+383. Which function calls act as compiler barriers? 
 
-386. Are `inline` function calls compiler barriers? 
+384. Are `inline` function calls compiler barriers? 
 
-387. What is a thread?  
+385. What is a thread?  
 
-388. What is the difference between threads and processes? 
+386. What is the difference between threads and processes? 
 
-389. What constitutes the state of a process? 
+387. What constitutes the state of a process? 
 
-390. What constitutes the state of a thread? 
+388. What constitutes the state of a thread? 
 
-391. Why the `-pthread` flag should be used when compiling with `pthreads`? 
+389. Why the `-pthread` flag should be used when compiling with `pthreads`? 
 
-392. Is `pthreads` a static or dynamic library? 
+390. Is `pthreads` a static or dynamic library? 
 
-393. How do we know in which order will the scheduler execute the threads? 
+391. How do we know in which order will the scheduler execute the threads? 
 
-394. Can one thread get an access to the stack of the other thread?  
+392. Can one thread get an access to the stack of the other thread?  
 
-395. What does `pthread_join` do and how to use it? 
+393. What does `pthread_join` do and how to use it? 
 
-396. What is a mutex? Why do we need them? 
+394. What is a mutex? Why do we need them? 
 
-397. Should every shared constant variable be associated with a mutex?
+395. Should every shared constant variable be associated with a mutex?
 
-398. Should every shared mutable variable which is never changed be associated with a mutex?
+396. Should every shared mutable variable which is never changed be associated with a mutex?
 
-399. Should every shared mutable variable which is changed be associated with a mutex?
+397. Should every shared mutable variable which is changed be associated with a mutex?
 
-400. Can we work with a shared variable without ever using a  mutex? 
+398. Can we work with a shared variable without ever using a  mutex? 
 
-401. What is a deadlock? 
+399. What is a deadlock? 
 
-402. How to prevent deadlock? 
+400. How to prevent deadlock? 
 
-403. What is a livelock? How is it different from deadlock? 
+401. What is a livelock? How is it different from deadlock? 
 
-404. What is a spinlock? How is it different from livelock and deadlock? 
+402. What is a spinlock? How is it different from livelock and deadlock? 
 
-405. Should spinlocks be used on a single core system? Why? 
+403. Should spinlocks be used on a single core system? Why? 
 
-406. What is a condition variable? 
+404. What is a condition variable? 
 
-407. Why do we need condition variables if we have mutexes? 
+405. Why do we need condition variables if we have mutexes? 
 
-408. Which guarantees does Intel 64  provide for memory reorderings? 
+406. Which guarantees does Intel 64  provide for memory reorderings? 
 
-409. Which important guarantees does Intel 64  not provide for memory reorderings? 
+407. Which important guarantees does Intel 64  not provide for memory reorderings? 
 
-410. Correct the program shown in Listing~`reordering_cpu_mwe.c` so that
+408. Correct the program shown in Listing~`reordering_cpu_mwe.c` so that
     no memory reordering occurs.
 
-411. Correct the program shown in Listing~`reordering_cpu_mwe.c` so that
+409. Correct the program shown in Listing~`reordering_cpu_mwe.c` so that
     no memory reordering occurs by using atomic variables.
 
-412. What is lock-free programming? Why is it harder than traditional multithreaded programming with locks?
+410. What is lock-free programming? Why is it harder than traditional multithreaded programming with locks?
 
-413. What is a CAS operation? How can it be implemented in Intel 64 ?
+411. What is a CAS operation? How can it be implemented in Intel 64 ?
 
-414. How strong is C memory model? 
+412. How strong is C memory model? 
 
-415. Can the strength of C memory model be controlled? 
+413. Can the strength of C memory model be controlled? 
 
-416. What is an atomic variable? 
+414. What is an atomic variable? 
 
-417. Can any data type be atomic? 
+415. Can any data type be atomic? 
 
-418. Which atomic variables should be initialized explicitly? 
+416. Which atomic variables should be initialized explicitly? 
 
-419. Which memory orderings does C11 recognize? 
+417. Which memory orderings does C11 recognize? 
 
-420. How are the atomic variables manipulation functions with `_explicit` suffix different from their ordinary counterparts?
+418. How are the atomic variables manipulation functions with `_explicit` suffix different from their ordinary counterparts?
 
-421. How to perform an atomic increment on an atomic variable? 
+419. How to perform an atomic increment on an atomic variable? 
 
-422. How to perform an atomic XOR on an atomic variable? 
+420. How to perform an atomic XOR on an atomic variable? 
 
-423. What is the difference between weak and strong versions of `compare_exchange`?
+421. What is the difference between weak and strong versions of `compare_exchange`?
 
