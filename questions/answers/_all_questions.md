@@ -716,8 +716,31 @@ no negative literals exist (so instead of writing `-1. 20` we will write
 
 256. What is the alignment? How can it be controlled in C11?
 
-257. Read BMP file specification to identify what these fields 
-are responsible for. 
+257. Read BMP file specification to identify what these fields
+ are responsible for: 
+
+ ```c
+#include <stdint.h>
+struct __attribute__((packed))
+bmp_header 
+    uint16_t bfType;
+    uint32_t bfileSize;
+    uint32_t bfReserved;
+    uint32_t bOffBits;
+    uint32_t biSize;
+
+    uint32_t biWidth;
+    uint32_t biHeight;
+    uint16_t biPlanes;
+    uint16_t biBitCount;
+    uint32_t biCompression;
+    uint32_t biSizeImage;
+    uint32_t biXPelsPerMeter;
+    uint32_t biYPelsPerMeter;
+    uint32_t biClrUsed;
+    uint32_t biClrImportant;
+;
+ ```
 
 258. Implement blurring. It is done in a very simple way: for each pixel you compute
     its new components as an average in a $3 \times 3$ pixels window (called 
