@@ -14,4 +14,6 @@ The page number is provided first.
 8. "...while main memory uses ~~condensers~~ capacitors"
 57.  "~~Use `print_string` routine...~~": the entire list item should be removed.
 
+67. "... will also accept ~~`rip` and~~ `rflags` register~~s~~."
 
+257. In the listing `bmp_struct.c`, `struct` keyword should start with a lower case letter.
