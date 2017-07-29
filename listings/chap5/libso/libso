@@ -1,7 +1,7 @@
 > nasm -f elf64 -o main.o main.asm
 > nasm -f elf64 -o libso.o libso.asm
-> ld -o main main.o -d libso.so 	
-> ld -shared -o libso.so libso.o --dynamic-linker=/lib64/ld-linux-x86-64.so.2
+> ld -shared -o libso.so libso.o 
+> ld -o main main.o -d libso.so	--dynamic-linker=/lib64/ld-linux-x86-64.so.2
 > readelf -S libso.so
 There are 13 section headers, starting at offset 0x5a0:
 
