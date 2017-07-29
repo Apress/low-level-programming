@@ -17,6 +17,10 @@ The page number is provided first.
 
 "...while main memory uses ~~condensers~~ capacitors"
 
+### Page 45.
+
+"...fills the upper half of a wide register with ~~sign bit~~zero bits!"
+
 ### Page 57.  
 
 "~~Use `print_string` routine...~~": the entire list item should be removed.
@@ -28,3 +32,4 @@ The page number is provided first.
 ### Page 257. 
 
 In the listing `bmp_struct.c`, `struct` keyword should start with a lower case letter.
+
