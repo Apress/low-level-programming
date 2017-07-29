@@ -12,6 +12,7 @@ The page number is provided first.
 6. "~~zero division~~ division by zero"
 
 8. "...while main memory uses ~~condensers~~ capacitors"
-57.  "~~Use `print_string` routine...~~": the entire list item should be removed.
 
+45. "...fills the upper half of a wide register with ~~sign bit~~zero bits!"
 
+57. "~~Use `print_string` routine...~~": the entire list item should be removed.
