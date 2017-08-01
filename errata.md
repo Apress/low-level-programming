@@ -29,6 +29,10 @@ The page number is provided first.
 
 "... will also accept ~~`rip` and~~ `rflags` register~~s~~."
 
+### Page 141.
+
+"3. as ..." should be "3. * as ..."
+
 ### Page 257. 
 
 In the listing `bmp_struct.c`, `struct` keyword should start with a lower case letter.
