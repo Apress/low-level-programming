@@ -36,11 +36,6 @@ read_char:
     xor rax, rax
     ret 
 
-section .data
-word_buffer times 256 db 0
-
-section .text
-
 read_word:
     ret
 
