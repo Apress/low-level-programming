@@ -4,6 +4,7 @@ import os
 import subprocess
 import re
 from subprocess import CalledProcessError, Popen, PIPE
+from termcolor import colored
 
 #-------helpers---------------
 
@@ -415,7 +416,6 @@ inputs= {'string_length'
          : ['ashdb asdhabs dahb', ' ', '', "asd" ]
 }
               
-
 if __name__ == "__main__":
     found_error = False
     for t in tests:
@@ -425,14 +425,14 @@ if __name__ == "__main__":
                     print '          testing', t.name,'on "'+ arg +'"'
                     res = t.perform(arg)
                     if res: 
-                        print '  [  ok  ]'
+                        print '  [', colored('  ok  ', 'green'), ']'
                     else:
-                        print '* [ fail ]'
+                        print '* [ ', colored('fail', 'red'),  ']'
                         found_error = True
                 except:
-                    print '* [ fail ] (exception)'
+                    print '* [ ', colored('fail', 'red'),  '] with exception' , sys.exc_info()[0]
                     found_error = True
     if found_error:
         print 'Not all tests have been passed'
     else:
-        print "Good work, all tests are passed"
+        print colored( "Good work, all tests are passed", 'green')
