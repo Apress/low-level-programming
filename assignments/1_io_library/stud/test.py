@@ -4,6 +4,7 @@ import os
 import subprocess
 import re
 from subprocess import CalledProcessError, Popen, PIPE
+from termcolor import colored
 
 #-------helpers---------------
 
@@ -88,6 +89,60 @@ class Test:
         print '"', arg,'" ->',  res
         return self.checker( arg, output, code )
 
+before_call="""
+mov rdi, -1
+mov rsi, -1
+mov rax, -1
+mov rcx, -1
+mov rdx, -1
+mov r8, -1
+mov r9, -1
+mov r10, -1
+mov r11, -1
+push rbx
+push rbp
+push r12 
+push r13 
+push r14 
+push r15 
+"""
+after_call="""
+cmp r15, [rsp] 
+jne .convention_error
+pop r15
+cmp r14, [rsp] 
+jne .convention_error
+pop r14
+cmp r13, [rsp] 
+jne .convention_error
+pop r13
+cmp r12, [rsp] 
+jne .convention_error
+pop r12
+cmp rbp, [rsp] 
+jne .convention_error
+pop rbp
+cmp rbx, [rsp] 
+jne .convention_error
+pop rbx
+
+jmp continue
+
+.convention_error:
+    mov rax, 1
+    mov rdi, 2
+    mov rsi, err_calling_convention
+    mov rdx,  err_calling_convention.end - err_calling_convention
+    syscall
+    mov rax, 60
+    mov rdi, -41
+    syscall
+section .data
+err_calling_convention: db "You did not respect the calling convention! Check that you handled caller-saved and callee-saved registers correctly", 10
+.end:
+section .text
+continue:
+"""
 tests=[ Test('string_length',
              lambda v : """section .data
         str: db '""" + v + """', 0
@@ -95,8 +150,10 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start
         _start:
+        """ + before_call + """
         mov rdi, str
         call string_length
+        """ + after_call + """
         mov rdi, rax
         mov rax, 60
         syscall""",
@@ -110,8 +167,10 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         mov rdi, str
         call print_string
+        """ + after_call + """
 
         mov rax, 60
         xor rdi, rdi
@@ -126,9 +185,11 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         mov rdi, arg1
         mov rsi, arg2
         call string_copy
+        """ + after_call + """
         mov rdi, arg2 
         call print_string
         mov rax, 60
@@ -141,8 +202,10 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         mov rdi, '""" + v + """'
         call print_char
+        """ + after_call + """
         mov rax, 60
         xor rdi, rdi
         syscall""", 
@@ -153,8 +216,10 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         mov rdi, """ + v + """
         call print_uint
+        """ + after_call + """
         mov rax, 60
         xor rdi, rdi
         syscall""", 
@@ -165,8 +230,10 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         mov rdi, """ + v + """
         call print_int
+        """ + after_call + """
         mov rax, 60
         xor rdi, rdi
         syscall""", 
@@ -177,37 +244,53 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         call read_char
+        """ + after_call + """
         mov rdi, rax
         mov rax, 60
         syscall""", 
         lambda i, o, r: (i == "" and r == 0 ) or ord( i[0] ) == r ),
 
         Test('read_word',
-             lambda v:"""section .text
+             lambda v:"""
+        section .data
+        word_buf: times 20 db 0xca
+        section .text
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
+        mov rdi, word_buf
+        mov rsi, 20 
         call read_word
+        """ + after_call + """
         mov rdi, rax
         call print_string
 
         mov rax, 60
         xor rdi, rdi
         syscall""", 
-        lambda i, o, r: first_or_empty(i) == o),
+        lambda i, o, r: first_or_empty(i)[:19] == o),
 
         Test('read_word_length',
-             lambda v:"""section .text
+             lambda v:"""
+        section .data
+        word_buf: times 20 db 0xca
+        section .text
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
+        mov rdi, word_buf
+        mov rsi, 20 
         call read_word
+        """ + after_call + """
 
         mov rax, 60
         mov rdi, rdx
         syscall""", 
-        lambda i, o, r: len(first_or_empty(i)) == r),
+        lambda i, o, r: len(first_or_empty(i)[:19]) == min(r, 19) ),
 
         Test('parse_uint',
              lambda v: """section .data
@@ -216,8 +299,10 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         mov rdi, input
         call parse_uint
+        """ + after_call + """
         push rdx
         mov rdi, rax
         call print_uint
@@ -233,8 +318,10 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         mov rdi, input
         call parse_int
+        """ + after_call + """
         push rdx
         mov rdi, rax
         call print_int
@@ -251,9 +338,11 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start
         _start:
+        """ + before_call + """
         mov rdi, str1
         mov rsi, str2
         call string_equals
+        """ + after_call + """
         mov rdi, rax
         mov rax, 60
         syscall""",
@@ -267,9 +356,11 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start
         _start:
+        """ + before_call + """
         mov rdi, str1
         mov rsi, str2
         call string_equals
+        """ + after_call + """
         mov rdi, rax
         mov rax, 60
         syscall""",
@@ -283,9 +374,11 @@ tests=[ Test('string_length',
         %include "lib.inc"
         global _start 
         _start:
+        """ + before_call + """
         mov rdi, arg1
         mov rsi, arg2
         call string_copy
+        """ + after_call + """
         mov rdi, arg2 
         call print_string
         mov rax, 60
@@ -323,7 +416,6 @@ inputs= {'string_length'
          : ['ashdb asdhabs dahb', ' ', '', "asd" ]
 }
               
-
 if __name__ == "__main__":
     found_error = False
     for t in tests:
@@ -333,14 +425,14 @@ if __name__ == "__main__":
                     print '          testing', t.name,'on "'+ arg +'"'
                     res = t.perform(arg)
                     if res: 
-                        print '  [  ok  ]'
+                        print '  [', colored('  ok  ', 'green'), ']'
                     else:
-                        print '* [ fail ]'
+                        print '* [ ', colored('fail', 'red'),  ']'
                         found_error = True
                 except:
-                    print '* [ fail ] (exception)'
+                    print '* [ ', colored('fail', 'red'),  '] with exception' , sys.exc_info()[0]
                     found_error = True
     if found_error:
         print 'Not all tests have been passed'
     else:
-        print "Good work, all tests are passed"
+        print colored( "Good work, all tests are passed", 'green')
