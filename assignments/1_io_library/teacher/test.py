@@ -186,12 +186,13 @@ tests=[ Test('string_length',
         Test('read_word',
              lambda v:"""
         section .data
-        word_buf: times 1000 db 0xca
+        word_buf: times 20 db 0xca
         section .text
         %include "lib.inc"
         global _start 
         _start:
         mov rdi, word_buf
+        mov rsi, 20 
         call read_word
         mov rdi, rax
         call print_string
@@ -199,23 +200,24 @@ tests=[ Test('string_length',
         mov rax, 60
         xor rdi, rdi
         syscall""", 
-        lambda i, o, r: first_or_empty(i) == o),
+        lambda i, o, r: first_or_empty(i)[:19] == o),
 
         Test('read_word_length',
              lambda v:"""
         section .data
-        word_buf: times 1000 db 0xca
+        word_buf: times 20 db 0xca
         section .text
         %include "lib.inc"
         global _start 
         _start:
         mov rdi, word_buf
+        mov rsi, 20 
         call read_word
 
         mov rax, 60
         mov rdi, rdx
         syscall""", 
-        lambda i, o, r: len(first_or_empty(i)) == r),
+        lambda i, o, r: len(first_or_empty(i)[:19]) == min(r, 19) ),
 
         Test('parse_uint',
              lambda v: """section .data

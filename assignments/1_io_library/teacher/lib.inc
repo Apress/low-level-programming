@@ -132,7 +132,10 @@ read_char:
 
 read_word:
     push r14
+    push r15
     xor r14, r14 
+    mov r15, rsi
+    dec r15
 
     .A:
     push rdi
@@ -166,7 +169,7 @@ read_word:
     je .C
     test al, al
     jz .C
-    cmp r14, 254
+    cmp r14, r15
     je .C 
 
     jmp .B
@@ -176,6 +179,8 @@ read_word:
     mov rax, rdi 
    
     mov rdx, r14 
+
+    pop r15
     pop r14
     ret
 
