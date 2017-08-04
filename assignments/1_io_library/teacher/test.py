@@ -184,10 +184,14 @@ tests=[ Test('string_length',
         lambda i, o, r: (i == "" and r == 0 ) or ord( i[0] ) == r ),
 
         Test('read_word',
-             lambda v:"""section .text
+             lambda v:"""
+        section .data
+        word_buf: times 1000 db 0xca
+        section .text
         %include "lib.inc"
         global _start 
         _start:
+        mov rdi, word_buf
         call read_word
         mov rdi, rax
         call print_string
@@ -198,10 +202,14 @@ tests=[ Test('string_length',
         lambda i, o, r: first_or_empty(i) == o),
 
         Test('read_word_length',
-             lambda v:"""section .text
+             lambda v:"""
+        section .data
+        word_buf: times 1000 db 0xca
+        section .text
         %include "lib.inc"
         global _start 
         _start:
+        mov rdi, word_buf
         call read_word
 
         mov rax, 60
