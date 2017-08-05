@@ -33,7 +33,10 @@ The page number is provided first.
 
 "3. as ..." should be "3. * as ..."
 
+### Page 236.
+
+"... then ~~six~~ 4 bytes are wasted ..."
+
 ### Page 257. 
 
 In the listing `bmp_struct.c`, `struct` keyword should start with a lower case letter.
-
