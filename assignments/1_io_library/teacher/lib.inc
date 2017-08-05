@@ -170,7 +170,7 @@ read_word:
     test al, al
     jz .C
     cmp r14, r15
-    je .C 
+    je .D
 
     jmp .B
 
@@ -179,7 +179,12 @@ read_word:
     mov rax, rdi 
    
     mov rdx, r14 
+    pop r15
+    pop r14
+    ret
 
+    .D:
+    xor rax, rax
     pop r15
     pop r14
     ret

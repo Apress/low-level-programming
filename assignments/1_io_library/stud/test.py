@@ -271,7 +271,7 @@ tests=[ Test('string_length',
         mov rax, 60
         xor rdi, rdi
         syscall""", 
-        lambda i, o, r: first_or_empty(i)[:19] == o),
+        lambda i, o, r: first_or_empty(i) == o),
 
         Test('read_word_length',
              lambda v:"""
@@ -290,7 +290,26 @@ tests=[ Test('string_length',
         mov rax, 60
         mov rdi, rdx
         syscall""", 
-        lambda i, o, r: len(first_or_empty(i)[:19]) == min(r, 19) ),
+        lambda i, o, r: len(first_or_empty(i)) == r or len(first_or_empty(i)) > 19),
+
+        Test('read_word_too_long',
+             lambda v:"""
+        section .data
+        word_buf: times 20 db 0xca
+        section .text
+        %include "lib.inc"
+        global _start 
+        _start:
+        """ + before_call + """
+        mov rdi, word_buf
+        mov rsi, 20 
+        call read_word
+        """ + after_call + """
+
+        mov rdi, rax
+        mov rax, 60
+        syscall""", 
+        lambda i, o, r: ( (not len(first_or_empty(i)) > 19) and r != 0 ) or  r == 0 ),
 
         Test('parse_uint',
              lambda v: """section .data
@@ -385,7 +404,7 @@ tests=[ Test('string_length',
         xor rdi, rdi
         syscall""", 
         lambda i,o,r: i == o) 
-]
+        ]
 
 
 inputs= {'string_length' 
@@ -401,11 +420,13 @@ inputs= {'string_length'
          'print_int'     
          : ['-1', '-12345234121', '0', '123412312', '123123'],
          'read_char'            
-         : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world', 'asdbaskdbaksvbaskvhbashvbasdasdads wewe'],
+         : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world' ],
          'read_word'            
-         : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world', 'asdbaskdbaksvbaskvhbashvbasdasdads wewe'],
+         : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world' ],
          'read_word_length'     
-         : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world', 'asdbaskdbaksvbaskvhbashvbasdasdads wewe'],
+         : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world' ],
+         'read_word_too_long'     
+         : [ 'asdbaskdbaksvbaskvhbashvbasdasdads wewe', 'short' ],
          'parse_uint'           
          : ["0", "1234567890987654321hehehey", "1" ],
          'parse_int'                
