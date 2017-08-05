@@ -37,3 +37,36 @@ The page number is provided first.
 
 In the listing `bmp_struct.c`, `struct` keyword should start with a lower case letter.
 
+### Page 266.
+
+"It means that the ~~last~~ first argument __after those passed in registers__ will be on top of the stack before the call is performed."
+
+Example:
+
+```c
+int f(int, int, int, int, int, int, int, int, int, int);
+
+...
+f(1,2,3,4,5,6,7,8,9,10);
+```
+
+The call of `f` will be translated as follows:
+
+```asm
+push       10 
+push        9
+push        8
+push        7
+mov    r9,  6
+mov    r8,  5
+mov    rcx, 4
+mov    rdx, 3
+mov    rsi, 2
+mov    rdi, 1 
+```
+
+### Page 303
+
+"4. Defined in dynamic library and used globally.
+
+~~Should be a part of linked list item rather than a paragraph on its own.~~ This is also done by using GOT (and PLT for functions)."
