@@ -65,4 +65,8 @@ mov    rsi, 2
 mov    rdi, 1 
 ```
 
+### Page 303
 
+"4. Defined in dynamic library and used globally.
+
+~~Should be a part of linked list item rather than a paragraph on its own.~~ This is also done by using GOT (and PLT for functions)."
