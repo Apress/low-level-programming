@@ -77,6 +77,14 @@ mov    rsi, 2
 mov    rdi, 1 
 ```
 
+### Page 267, Section 14.1.2.
+
+An important addition for the third item: when `call` is executed, the stackshould be 16-bit aligned. Some compiled functions will count on that. 
+
+### Page 268, Section 14.1.3.
+
+`maximum.c` should be compiled with `-fno-stack-protector` flag. [Related discussion](https://github.com/Apress/low-level-programming/issues/28)
+
 ### Page 303, Section 15.6
 
 "4. Defined in dynamic library and used globally.
