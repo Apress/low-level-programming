@@ -130,17 +130,17 @@ read_char:
     pop rax
     ret 
 
-section .bss
-word_buffer resb 256
-
-section .text
-
 read_word:
     push r14
+    push r15
     xor r14, r14 
+    mov r15, rsi
+    dec r15
 
     .A:
+    push rdi
     call read_char
+    pop rdi
     cmp al, ' '
     je .A
     cmp al, 10
@@ -153,10 +153,12 @@ read_word:
     jz .C
 
     .B:
-    mov byte [word_buffer + r14], al
+    mov byte [rdi + r14], al
     inc r14
 
+    push rdi
     call read_char
+    pop rdi
     cmp al, ' '
     je .C
     cmp al, 10
@@ -167,19 +169,26 @@ read_word:
     je .C
     test al, al
     jz .C
-    cmp r14, 254
-    je .C 
+    cmp r14, r15
+    je .D
 
     jmp .B
 
     .C:
-    mov byte [word_buffer + r14], 0
-    mov rax, word_buffer
+    mov byte [rdi + r14], 0
+    mov rax, rdi 
    
     mov rdx, r14 
+    pop r15
     pop r14
     ret
-   
+
+    .D:
+    xor rax, rax
+    pop r15
+    pop r14
+    ret
+
 string_copy:
     mov dl, byte[rdi]
     mov byte[rsi], dl

@@ -13,12 +13,12 @@ void f(void) {
     ...
 }
 
-/* Bad: `i` can not be declared in `for` initializer */
+/* Good, but declaring `i` in the `for` initializer like this requires C99. */
 for( int i = 0; i < 10; i++ ) {
     ...
 }
 
-/* Good: `i` is declared before `for` */
+/* Good: `i` is declared before `for`. Does not require C99. */
 int f(void) { 
     int i;
     for( i = 0; i < 10; i++ ) {

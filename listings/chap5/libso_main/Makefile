@@ -12,7 +12,7 @@ libso.so: libso.o
 	ld -shared -o libso.so libso.o
 
 main: main.o libso.so
-	ld -o main main.o -d libso.so 	
+	ld -o main main.o -d libso.so --dynamic-linker=/lib64/ld-linux-x86-64.so.2
 
 clean: 
 	rm -f main.o libso.o libso.so main
