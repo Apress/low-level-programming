@@ -85,6 +85,14 @@ An important addition for the third item: when `call` is executed, the stackshou
 
 `maximum.c` should be compiled with `-fno-stack-protector` flag. [Related discussion](https://github.com/Apress/low-level-programming/issues/28)
 
+### Page 291, Section 15.1
+
+Perform relocation of the ~~applications and dependencies~~ application and its dependencies.
+
+### Page 296, Section 15.4.1
+
+This place is a part of ~~GOT~~ the .rodata section.
+
 ### Page 303, Section 15.6
 
 "4. Defined in dynamic library and used globally.
