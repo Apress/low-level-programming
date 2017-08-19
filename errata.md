@@ -90,3 +90,7 @@ An important addition for the third item: when `call` is executed, the stackshou
 "4. Defined in dynamic library and used globally.
 
 ~~Should be a part of linked list item rather than a paragraph on its own.~~ This is also done by using GOT (and PLT for functions)."
+
+### Page 311, Section 15.8
+
+"crti and ~~crto~~ crtn contain the prologue and epilogue ..."
