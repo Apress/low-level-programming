@@ -19,6 +19,10 @@ This repository holds the following information:
 * The links to preconfigured Debian Linux virtual machines:
 
   Debian 9 Minimal (.vmx) https://yadi.sk/d/BehMKGzS3LgXzG
+  
+  Mirror: http://rubber-duck-typing.com/files/low-level-programming-debian-minimal.zip
+
+  Username: __user__, password: __user__, root password: __qwerty__
 
 ## Releases
 
