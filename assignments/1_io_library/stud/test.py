@@ -188,6 +188,7 @@ tests=[ Test('string_length',
         """ + before_call + """
         mov rdi, arg1
         mov rsi, arg2
+        mov rdx, """ + str(len(v) + 1) + """
         call string_copy
         """ + after_call + """
         mov rdi, arg2 
