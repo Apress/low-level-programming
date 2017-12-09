@@ -1,5 +1,5 @@
 struct str {
-    uint16_t a; /* a gap of 4 bytes */
+    uint16_t a; /* a gap of 6 bytes */
     uint64_t b; 
 };
 struct str mystr;
