@@ -77,8 +77,6 @@ the executable. Corrected listing:
 "Thus, setting IOPL in an application individually allows us to forbid it from writing even if it is working
 at a higher privilege level than the user applications."
 
-TODO clarify
-
 "If the IOPL check has passed, the processor checks the bit corresponding to the used port. The operation proceeds only if this bit is not set."
 
 Clarification:
@@ -535,8 +533,9 @@ int close(int fd)
 
 Close the file with the given **descriptor**.
 
-| rax | rdi | rsi | rdx | r10 | r8 | r9 |
-|   3 | fd  |     |     |     |    |    |
+| rax | rdi | rsi | rdx | r10 | r8  | r9  |
+| --- | --- | --- | --- | --- | --- | --- |
+| 3   | fd  |     |     |     |     |     |
 
 Arguments:
 1. `fd`   a valid file descriptor that should be closed.
