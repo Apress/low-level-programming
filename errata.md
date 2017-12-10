@@ -163,6 +163,10 @@ Listing 9-54: the comment should be between `/*` and `*/`, but it is not closed
 
 Corrected listing: [listings/chap9/macro_str/macro_str.c](listings/chap9/macro_str/macro_str.c).
 
+### Page 186, Section 10.2.2
+
+"while in the other object file ~~main.o~~ it is marked D"
+
 ### Page 189, Section 10.3
 
 Listing 10-25 is not properly indented.
@@ -170,11 +174,135 @@ Listing 10-25 is not properly indented.
 
 Corrected listing: [listings/chap10/ldd_locating_libc/ldd_locating_libc](listings/chap10/ldd_locating_libc/ldd_locating_libc).
 
+### Page 199, Section 10.8
 
+* Local variables (static or not) -- ~~internal~~ no linkage.
+
+### Page 200, Section 10.9
+
+"...studied include guards and learned to isolate functions and variables inside a file."
+
+Clarification:
+
+We learned how to separate programs in mutliple files correctly.
+
+### Page 203, Section 11.1.3
+
+"In other words, while assigning `short*` to `long*` is a clear error."
+
+Missing `*` after `long`. Should be:
+
+"In other words, while assigning `short*` to `long*` is a clear error."
+
+
+### Page 204, Section 11.1.5
+* This schematic might provoke confusion due to notation:
+
+```c
+int < unsigned int (unsigned  int)int <  unsigned  int
+```
+
+Read  `<` as an arrow.
+
+```c
+int <- unsigned int <- (unsigned  int)int <-  unsigned  int
+```
+
+* "Apparently, the result of this comparison will be almost always
+equal to ~~0~~ __1__, which is wrong, because -1 is smaller than any unsigned integer."
+
+
+
+### Page 205, Section 11.1.5
+
+
+* This schematic might provoke confusion due to notation:
+
+```c
+signed long < unsigned int < long < (signed long)unsigned int
+```
+
+
+Read  `<` as an arrow.
+
+```c
+signed long <- unsigned int <- long <- (signed long)unsigned int
+```
+
+### Page 214, Section 11.5
+
+
+"As we have chosen the GNU/Linux 64-bit system for studying purposes, ~~it~~ our data model is LP64."
+
+"The `printf` function (and similar format input/output ~~)~~ functions ..."
+
+### Page 229, Section 12.2.5
+
+In Listing 12-7, the line has a typo in `::=` notation. :
+
+```
+<expr0> = <expr1> "+" <expr> | <expr1> "-" <expr> | <expr1>
+```
+
+should be:
+
+```
+<expr0> ::= <expr1> "+" <expr> | <expr1> "-" <expr> | <expr1>
+```
+
+### Page 232, Section 12.3.1
+
+"The compiler has ~~two~~ to do two things each time _any_ pointer..."
+
+### Page 233, Section 12.3.1
+
+"Writing out of block bounds (but close to them) is likely to corrupt this
+information, which will result in a crash during one of future calls to malloc
+~~of~~ or free, making this bug a time-bomb."
+
+### Page 239, Section 12.6
+
+"We then introduced the notion of pragmatics. ~~ and elaborated one of the most
+important things~~"
+
+### Page 242, Sectino 13.1
+
+* Listing 13-1 is wrong. It shows an example of good `list_sum`, where the list is
+__not__ traversed from the beginning on each access. Corrected listing shows both
+good and bad versions:
+[listings/chap13/list_sum_bad/list_sum_bad.c](listings/chap13/list_sum_bad/list_sum_bad.c)
+
+* "Sometimes the task demands the opposite. For example, if we are writing the code for a controller in
+absence of a good optimizing compiler and with very restricted resources,..."
+
+Clarification: here "controller" has a meaning of a hardware piece, microcontroller. 
 
 ### Page 257, Section 13.10.1. 
 
 In the listing `bmp_struct.c`, `struct` keyword should start with a lower case letter.
+
+### Page 252, Section 13.6
+
+The line 
+
+```
+assert: assert.c:6: main: Assertion 'x != 0' failed.
+```
+
+should be substituted with:
+
+```
+assert: assert.c:4: main: Assertion 'x != 0' failed.
+```
+
+### Page 257, Section 13.10.1
+
+In Listing 13-16, `Struct` should be `struct`.
+
+### Page 258
+
+"To achieve that, define a structure ~~`structure`~~ `image` "
+
 
 ### Page 266, Section 14.1.2.
 
@@ -212,9 +340,32 @@ An important addition for the third item: when `call` is executed, the stackshou
 
 `maximum.c` should be compiled with `-fno-stack-protector` flag. [Related discussion](https://github.com/Apress/low-level-programming/issues/28)
 
+
+### Page 286, Section 14.7.3
+
+There are several typos on this page, which revolve around the number of "%x" in the program input. The correct number of "%x"'s for this example should be __9__.
+
+* The launch string and a sample output will look like that:
+
+```
+> ./printf_vuln <<< "%x %x %x %x %x %x %x %x %x"
+21a902a fb79a790 fb7988e0 21a902b 0 25207825 20782520 78252078 fb007825%   
+```
+
+  Note that `<<<` in Bash means that the latter string will be directed directly
+  to the program __stdin__.
+
+* As we see, it actually gave us four numbers that share a certain informal
+similarity, a 0 and ~~two~~ four more numbers. Our hypothesis is that the last
+~~two~~ four numbers are taken from the stack already.
+
+
+
 ### Page 291, Section 15.1
 
-Perform relocation of the ~~applications and dependencies~~ application and its dependencies.
+* "...the other program has to interfere (i.e., dynamic loader **or dynamic loader**)."
+* "Perform relocation of the ~~applications and dependencies~~ application and its dependencies."
+
 
 ### Page 296, Section 15.4.1
 
@@ -224,8 +375,180 @@ This place is a part of ~~GOT~~ the .rodata section.
 
 "4. Defined in dynamic library and used globally.
 
-~~Should be a part of linked list item rather than a paragraph on its own.~~ This is also done by using GOT (and PLT for functions)."
+~~Should be a part of linked list item rather than a paragraph on its own.~~ 
+
+
+### Page 304, Section 15.7.1
+
+Notice that the global symbol `sofun` is marked as ~~`:func`~~ *`:function`*
+
 
 ### Page 311, Section 15.8
 
-"crti and ~~crto~~ crtn contain the prologue and epilogue ..."
+* "crti and ~~crto~~ crtn contain the prologue and epilogue ..."
+
+* Need spaces between "of" and `__init`, "of" and `__fini` in the sentence:
+"the prologue and epilogue of `__init` function (and likewise for `__fini` function)."
+
+
+### Page 322, Section 15.10.5
+
+The variables not visible ~~as~~ **from** other objects.
+
+### Page 324, Section 15.11
+
+Question 305: Can we share a ~~**.data**~~ **.rodata** section when it is being relocated?
+
+### Page 330, Section 16.1.3
+
+Short version: The Listing 16-2 shows an example that triggers undefined behavior, but works in most cases. On some systems another example works more stable, which is why we are replacing this listing with another one.
+
+In the old listing, when the condition "`rbx` is 0" is matched, the stack unwinding stops. We rely on the fact that the link to the previous stack frame turns zero somewhere around `main` and `_start` functions. However in reality it is not enforced for the first function called to store anything near its return address, so Kunio Yoshikawa made another example. There, a condition to stop unwinding stack revolves around an address of a local variable of `main` function. 
+
+Corrected listing:
+[listings/chap16/stack_unwind/stack_unwind.asm](listings/chap16/stack_unwind/stack_unwind.asm)
+### Page 336, Section 16.1.7
+
+Clarification: The `nop` instructions after `ret` in listings 16-15 and 16-16 are just there because of disassembler's incapability of finding the function end address. They are not needed.
+
+
+### Page 340, Section 16.2.1
+
+"Instructions and ~~code~~ data inhabit virtually always..."
+
+### Page 341, Section 16.2.2
+`Void` should be `void`.
+
+### Page 344, Section 16.2.3
+
+The last sentence should not be there:
+
+"... the results for no prefetch, while Listing 16-25 shows the results with
+prefetching. I corresponds to instruction cache, D to the data cache, LL – Last
+Level Cache). ~~There are almost 100% data cache misses, which is very bad.~~""
+
+
+### Page 348, Section 16.2.5
+
+The sentense "There are almost 100% data cache misses, which is very bad." belongs here. The line between two cache diagnostic outputs should be:
+
+
+"There are almost 100% data cache misses, which is very bad. As we see, accessing memory sequentially decreases cache misses radically:"
+
+
+### Page 351, Section
+
+TODO 377
+
+
+### Page 352, Section 16.4.1
+
+In listing 16-32, one coefficient for sepia transformation is off: it is `.543f` instead of `.534f`:
+
+
+```c
+ static const float c[3][3] =  {
+    { .393f, .769f, .189f },
+    { .349f, .686f, .168f },
+    { .272f, .543f, .131f } }; 
+```
+
+Corrected listing:
+[listings/chap16/image_sepia_c_example/image_sepia_c_example.c](listings/chap16/image_sepia_c_example/image_sepia_c_example.c)
+
+### Page 360, Section 17.4
+
+* `Mov` should be `mov` in
+
+```asm
+mov rdx, [rbx]
+mov rax, [rdx]
+```
+
+
+* In C this is the situation when we use the ~~➤~~ `->` operator to get to a
+  field of a certain structure through the pointer to that structure.
+  
+### Page 373, Section 17.4
+
+"We create a type to hold the information about single task called `struct
+fact_task`. It includes the number itself, the range bounds ~~to~~ `from` and `to`, and the
+slot for the result, ..." 
+
+### Page 403, Section 17.8.5
+
+To dispose of a mutex, the call to ~~`pthread_mutex_unlock`~~ `pthread_mutex_destroy` is used.
+
+
+### Page 384, Section 17.9
+
+After "For more information on semaphores, refer to the man pages for the following functions:", the bullet list starts with a wrong item. `em_close` should be `sem_close`
+
+
+### Page 385, Section 17.10
+
+Clarification:
+
+"In a multiprocessor system, stores to the same location have a total order."
+
+This was taken from from "Intel® 64 and IA-32 Architectures Software Developer’s Manual". However the wording is changed now to: 
+
+"Any two stores are seen in a consistent orderby processors other than those performing the stores"
+
+
+### Page 403, Appendix A 
+
+The right command to examine 8 bytes is `x /xg`, where `/xg` is a hexadecimal (x) 8-byte (g) format string.
+
+So, the correct version would be:
+
+
+* "Examine the top 8 bytes of the stack:
+
+```
+(gdb) x /xg $rsp
+0x7fffffffdf90: 0x0000000000000001
+```
+
+* Examine the second qword stored in the stack:
+
+```
+(gdb) x/xg $rsp+8
+0x7fffffffd168:	0x00007fffffffd513
+```
+
+
+### Page 410, Section 19.2 
+
+"The target program should produce the file program. To do it we should build
+files `main.o` and `lib.o` first. If we change the file ~~`main.o`~~ `main.asm` and ...
+
+
+### Page 417, Section 20.4
+
+The `close` system call has an erroneous description.
+The correct version follows:
+
+```c
+int close(int fd)
+```
+
+Close the file with the given **descriptor**.
+
+| rax | rdi | rsi | rdx | r10 | r8 | r9 |
+|   3 | fd  |     |     |     |    |    |
+
+Arguments:
+1. `fd`   a valid file descriptor that should be closed.
+
+Returns `rax` = zero on success, -1 on error. Global variable `errno` holds the error code.
+Includes to use in C:
+
+```c
+#include <unistd.h>
+```
+
+
+### Page 419, Section 20.4
+
+"Returns `rax` = zero ~~un~~ on success, -1 on error."

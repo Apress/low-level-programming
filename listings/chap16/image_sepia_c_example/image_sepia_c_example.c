@@ -14,7 +14,7 @@ static void sepia_one( struct pixel* const pixel ) {
     static const float c[3][3] =  {
         { .393f, .769f, .189f }, 
         { .349f, .686f, .168f },
-        { .272f, .543f, .131f } };
+        { .272f, .534f, .131f } };
     struct pixel const old = *pixel;
 
     pixel->r = sat(
