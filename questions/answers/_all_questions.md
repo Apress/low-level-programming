@@ -668,7 +668,7 @@ mylist.Foreach( x => count += 1 );
 
 234. What is the data stream?
 
-235. is there a difference between a data stream and a desciptor?
+235. is there a difference between a data stream and a descriptor?
     
 236. How to get the descriptor from stream?
 

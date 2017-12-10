@@ -18,8 +18,6 @@ print_newline:
 print_hex:
     mov rax, rdi
 
-    mov rdi, 1                  
-	mov rdx, 1                  
 	mov rcx, 64                 
 iterate:                            
 	push rax                    
@@ -30,6 +28,8 @@ iterate:
 	mov rax, 1                  
 
 	push rcx         					 
+    mov rdi, 1                  
+	mov rdx, 1                  
 	syscall                     
 	pop rcx                     
 	

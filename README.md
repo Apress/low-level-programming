@@ -30,4 +30,11 @@ Release v1.0 corresponds to the code in the published book, without corrections 
 
 ## Contributions
 
-See the file Contributing.md for more information on how you can contribute to this repository.
+See the file Contributing.md for more information on how you can contribute to
+this repository.
+
+I want to personally thank Kunio Yoshikawa for his amazing and most
+effective contributions in finding errors and typos in the book. 
+
+I also thank all readers who have provided me with feedback, critique and
+corrections. Your work benefits the community!
