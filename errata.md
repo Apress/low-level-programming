@@ -434,9 +434,12 @@ The sentense "There are almost 100% data cache misses, which is very bad." belon
 "There are almost 100% data cache misses, which is very bad. As we see, accessing memory sequentially decreases cache misses radically:"
 
 
-### Page 351, Section
+### Page 351, Section 16.4
 
-TODO 377
+`unpckhpd` -- Unpack and Interleave High Packed Double
+`unpcklps` -- Unpack and Interleave Low Packed Double
+`packsswb` -- Pack with Signed Saturation
+`packusswb` -- Pack with Unsigned Saturation 
 
 
 ### Page 352, Section 16.4.1
