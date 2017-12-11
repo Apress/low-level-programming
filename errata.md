@@ -66,6 +66,10 @@ CISC (~~Complete~~ Complex Instruction Set Computer)
 
 In Listing 5-19, "Mymacro" should be substituted with "mymacro".
 
+### Page 74, Section 5.2
+
+"For instance, the object file is completed separately from other files but refers to outside code and data.
+It is not yet clear ~~whether~~ **where** that code or data will reside in memory"
 ### Page 83, Listing 5-31 
 
 The `-shared` flag should be used when creating `libso.so` (third line), not
