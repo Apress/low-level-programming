@@ -24,6 +24,11 @@ there.
 
 "The smallest parts ~~pf~~ of rsp"
 
+### Page 11, Section 1.3.2
+"Figure 1-3.  Approximation of Intel 64: general purpose registers"
+
+To prevent confusion: `rip` and `rflags` are not general purpose registers, although they are shown on this figure. The name should be "general purpose registers, `rip` and `rflags`".
+
 ### Page 35, Section 2.7.
 
 * `read_word` should also return word length in `rdx` when the value
@@ -33,10 +38,10 @@ there.
 " Their codes are 0x20, 0x9, and ~~0x10~~ 0xA, respectively."
 
 
-### Page 37, Section 1.3.2
-"Figure 1-3.  Approximation of Intel 64: general purpose registers"
+### Page 38, Section 2.8
+Question 44: 
 
-To prevent confusion: `rip` and `rflags` are not general purpose registers, although they are shown on this figure. The name should be "general purpose registers, `rip` and `rflags`".
+Instead of `rax = 0x112233445567788`, should be `rax = 0x11 22 33 44 55 66 77 88` (missing 6).
 
 ### Page 45, Section 3.4.1.
 
