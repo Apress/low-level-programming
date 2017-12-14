@@ -24,6 +24,11 @@ there.
 
 "The smallest parts ~~pf~~ of rsp"
 
+### Page 11, Section 1.3.2
+"Figure 1-3.  Approximation of Intel 64: general purpose registers"
+
+To prevent confusion: `rip` and `rflags` are not general purpose registers, although they are shown on this figure. The name should be "general purpose registers, `rip` and `rflags`".
+
 ### Page 35, Section 2.7.
 
 * `read_word` should also return word length in `rdx` when the value
@@ -33,10 +38,10 @@ there.
 " Their codes are 0x20, 0x9, and ~~0x10~~ 0xA, respectively."
 
 
-### Page 37, Section 1.3.2
-"Figure 1-3.  Approximation of Intel 64: general purpose registers"
+### Page 38, Section 2.8
+Question 44: 
 
-To prevent confusion: `rip` and `rflags` are not general purpose registers, although they are shown on this figure. The name should be "general purpose registers, `rip` and `rflags`".
+Instead of `rax = 0x112233445567788`, should be `rax = 0x11 22 33 44 55 66 77 88` (missing 6).
 
 ### Page 45, Section 3.4.1.
 
@@ -66,6 +71,10 @@ CISC (~~Complete~~ Complex Instruction Set Computer)
 
 In Listing 5-19, "Mymacro" should be substituted with "mymacro".
 
+### Page 74, Section 5.2
+
+"For instance, the object file is completed separately from other files but refers to outside code and data.
+It is not yet clear ~~whether~~ **where** that code or data will reside in memory"
 ### Page 83, Listing 5-31 
 
 The `-shared` flag should be used when creating `libso.so` (third line), not
@@ -434,9 +443,12 @@ The sentense "There are almost 100% data cache misses, which is very bad." belon
 "There are almost 100% data cache misses, which is very bad. As we see, accessing memory sequentially decreases cache misses radically:"
 
 
-### Page 351, Section
+### Page 351, Section 16.4
 
-TODO 377
+`unpckhpd` -- Unpack and Interleave High Packed Double
+`unpcklps` -- Unpack and Interleave Low Packed Double
+`packsswb` -- Pack with Signed Saturation
+`packusswb` -- Pack with Unsigned Saturation 
 
 
 ### Page 352, Section 16.4.1
