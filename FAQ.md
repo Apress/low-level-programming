@@ -55,3 +55,7 @@ The version part is xnu-3248.60.10
 Links and example: [https://filippo.io/making-system-calls-from-assembly-in-mac-os-x/](https://filippo.io/making-system-calls-from-assembly-in-mac-os-x/)
 
 
+### Problems with Virtual Machine
+
+The problems are usually related to your host VM's network configuration.
+E.g. see [this issue](https://github.com/Apress/low-level-programming/issues/54). 
