@@ -75,6 +75,12 @@ In Listing 5-19, "Mymacro" should be substituted with "mymacro".
 
 "For instance, the object file is completed separately from other files but refers to outside code and data.
 It is not yet clear ~~whether~~ **where** that code or data will reside in memory"
+
+### Page 81, Listing 5-28
+
+Listing 5-28 depicts an erronous symbol table. Corrected listing:
+[listings/chap5/objdump_tf/objdump_tf](listings/chap5/objdump_tf/objdump_tf)
+
 ### Page 83, Listing 5-31 
 
 The `-shared` flag should be used when creating `libso.so` (third line), not
@@ -370,7 +376,7 @@ similarity, a 0 and ~~two~~ four more numbers. Our hypothesis is that the last
 
 ### Page 291, Section 15.1
 
-* "...the other program has to interfere (i.e., dynamic loader **or dynamic loader**)."
+* "...the other program has to interfere (i.e., dynamic loader **or dynamic linker**)."
 * "Perform relocation of the ~~applications and dependencies~~ application and its dependencies."
 
 
