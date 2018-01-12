@@ -31,6 +31,7 @@ To prevent confusion: `rip` and `rflags` are not general purpose registers, alth
 
 ### Page 35, Section 2.7.
 
+* In the table showing all functions to implement, `string_copy` should be placed after `string_length`. 
 * `read_word` should also return word length in `rdx` when the value
   returned in `rax` is not 0.
 

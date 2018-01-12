@@ -178,7 +178,8 @@ tests=[ Test('string_length',
         lambda i,o,r: i == o),
 
         Test('string_copy',
-            lambda v: """section .data
+            lambda v: """
+        section .data
         arg1: db '""" + v + """', 0
         arg2: times """ + str(len(v) + 1) +  """ db  66
         section .text
@@ -190,6 +191,7 @@ tests=[ Test('string_length',
         mov rsi, arg2
         mov rdx, """ + str(len(v) + 1) + """
         call string_copy
+
         """ + after_call + """
         mov rdi, arg2 
         call print_string
@@ -386,10 +388,13 @@ tests=[ Test('string_length',
         syscall""",
         lambda i,o,r: r == 0),
 
-        Test('string_copy',
-            lambda v: """section .data
+        Test('string_copy_too_long',
+            lambda v: """
+            section .rodata
+            err_too_long_msg: db "string is too long", 10, 0
+            section .data
         arg1: db '""" + v + """', 0
-        arg2: times """ + str(len(v) + 1) +  """ db  66
+        arg2: times """ + str(len(v)/2)  +  """ db  66
         section .text
         %include "lib.inc"
         global _start 
@@ -397,15 +402,22 @@ tests=[ Test('string_length',
         """ + before_call + """
         mov rdi, arg1
         mov rsi, arg2
-        mov rdx, """ + str(len(v) + 1) + """
+        mov rdx, """ + str(len(v)/2 ) + """
         call string_copy
+        test rax, rax
+        jnz .good
+        mov rdi, err_too_long_msg 
+        call print_string
+        jmp exit
+        .good:
         """ + after_call + """
         mov rdi, arg2 
         call print_string
+        exit:
         mov rax, 60
         xor rdi, rdi
         syscall""", 
-        lambda i,o,r: i == o) 
+        lambda i,o,r: o.find("too long") != -1 ) 
         ]
 
 
@@ -414,6 +426,8 @@ inputs= {'string_length'
          'print_string'  
          : ['ashdb asdhabs dahb', ' ', ''],
          'string_copy'   
+         : ['ashdb asdhabs dahb', ' ', ''],
+         'string_copy_too_long'   
          : ['ashdb asdhabs dahb', ' ', ''],
          'print_char'    
          : "a c",
