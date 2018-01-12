@@ -370,7 +370,7 @@ similarity, a 0 and ~~two~~ four more numbers. Our hypothesis is that the last
 
 ### Page 291, Section 15.1
 
-* "...the other program has to interfere (i.e., dynamic loader **or dynamic loader**)."
+* "...the other program has to interfere (i.e., dynamic loader **or dynamic linker**)."
 * "Perform relocation of the ~~applications and dependencies~~ application and its dependencies."
 
 
