@@ -7,6 +7,12 @@ This repository accompanies [*Low-Level Programming*](http://www.apress.com/9781
 
 Download the files as a zip using the green button, or clone the repository to your machine using Git.
 
+# Student projects
+
+Each year, my students in ITMO university can opt to make a project that is connected to system programming or system programming languages in general instead of passing the final test. Each project is coded by one student, who is is free to chose a topic of interest. The source code is always available on GitHub and  video demonstrations are mandatory. 
+
+The videos are being uploaded to [our YouTube channel](https://www.youtube.com/channel/UCOLTncnm6jVkO0pcPoIoHFg). Soon all available videos for all years are going to be uploaded.
+
 # Repository structure 
 
 This repository holds the following information:
@@ -23,6 +29,8 @@ This repository holds the following information:
   Mirror: http://rubber-duck-typing.com/files/low-level-programming-debian-minimal.zip
 
   Username: __user__, password: __user__, root password: __qwerty__
+
+
 
 ## Releases
 
