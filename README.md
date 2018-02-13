@@ -30,6 +30,8 @@ This repository holds the following information:
   
   Debian 9 with XFCE installed (more user friendly if you are not a Linux expert) [https://yadi.sk/d/01uFWHCw3SHzh9](https://yadi.sk/d/01uFWHCw3SHzh9).
   
+  Mirror: [http://rubber-duck-typing.com/files/low-level-programming-debian-desktop.zip](http://rubber-duck-typing.com/files/low-level-programming-debian-desktop.zip)
+  
   For all virtual machines: 
   
   Username: __user__, password: __user__, root password: __qwerty__
