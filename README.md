@@ -22,19 +22,23 @@ This repository holds the following information:
 * Errors and typos are collected in [errata.md](errata.md)
 * Sample solutions for assignments [assignments](assignments)
 * FAQ about system setup at [FAQ.md](FAQ.md)
-* The links to preconfigured Debian Linux virtual machines:
+* The links to preconfigured Linux virtual machines:
 
-  Debian 9 Minimal (.vmx) https://yadi.sk/d/BehMKGzS3LgXzG
+
+1. **recommended if you are new to Linux**  Ubuntu 16 with standard desktop environment (VirtualBox): https://yadi.sk/d/CLf4D4IM3TSpsx
+
+2. Debian 9 Minimal (.vmx) https://yadi.sk/d/BehMKGzS3LgXzG
   
   Mirror: http://rubber-duck-typing.com/files/low-level-programming-debian-minimal.zip
   
-  Debian 9 with XFCE installed (more user friendly if you are not a Linux expert) [https://yadi.sk/d/01uFWHCw3SHzh9](https://yadi.sk/d/01uFWHCw3SHzh9).
+  
+3.  Debian 9 with XFCE installed (more user friendly, than minimal one if you are not a Linux expert; more lightweight than Ubuntu) [https://yadi.sk/d/01uFWHCw3SHzh9](https://yadi.sk/d/01uFWHCw3SHzh9).
   
   Mirror: [http://rubber-duck-typing.com/files/low-level-programming-debian-desktop.zip](http://rubber-duck-typing.com/files/low-level-programming-debian-desktop.zip)
   
-  For all virtual machines: 
-  
-  Username: __user__, password: __user__, root password: __qwerty__
+>  For all virtual machines: 
+> 
+>  Username: __user__, password: __user__, root password: __qwerty__
 
 
 
