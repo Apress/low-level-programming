@@ -1,4 +1,4 @@
-> gcc -O3 prefetch.c -o prefetch_off && /usr/bin/time -v ./prefetch_off
+> gcc -DDO_PREFETCH -O3 prefetch.c -o prefetch_on && /usr/bin/time -v ./prefetch_on
 
 	Command being timed: "./prefetch_on"
 	User time (seconds): 6.56
