@@ -40,7 +40,7 @@ This repository holds the following information:
 > 
 >  Username: __user__, password: __user__, root password: __qwerty__
 
-
+4. **Docker image** (thanks go to @kellyi ) [https://github.com/kellyi/nasm-gcc-container](https://github.com/kellyi/nasm-gcc-container)
 
 ## Releases
 
