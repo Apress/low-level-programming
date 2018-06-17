@@ -221,7 +221,7 @@ For example, we have a `2` digit in the string and we want to convert it into a 
 according to the **ASCII table** is `50` or `0x32` in hex. To get a number from it, we must subtract `'0'` code or `0x30` from
 it. Of course we could do this via `sub` instruction, but we are cool programmers and we will operate on bits in the byte.
 If we look at `2`, we will see its binary representation: `110010`. If we set first (highest) two bits to `0`, we will get a
-`000010` number which is our number we want so much. We can do this via a `1111` (`0x0f` mask and `and` instruction, so we reset 
+`000010` number which is our number we want so much. We can do this via a `1111` (`0x0f` mask) and `and` instruction, so we reset 
 two highest bits to zero by `and r9b, 0x0f`:
 
      110010
@@ -327,6 +327,60 @@ string_equals:
     .no:
     xor rax, rax
     ret 
+```
+
+# Define `string_copy` function
+
+The algorithm is basically like that:
+
+1. Calculate the source string length. If it is too long and destination string's length is not enough (the source string is too
+big) we return with error.
+2. Copy bytes from source string into destination string one after another in a loop with checking for `'\0'` symbol.
+
+Calculating the source string length is fairly simple - just call `string_length` function but remember to keep our registers.
+That is why we push them into stack before the call and pop after it. Then we compare source string length and destination string
+length, if source string is above destination string length - we jump to the `.too_long` label which simply zeroes the `rax`
+register and returns from the function. If the lengths are okay, with push our source string because we will change the `rsi`
+pointer after.
+
+Our loop starts with copying the first byte pointed by the `rdi` register into the `dl` register (lowest part of the `rdx`
+register) and then we copy it into the byte pointed by the `rsi` register. This could not be done via single instruction like
+`mov byte[rsi], byte[rdi]` because such syntax would be illegal. Then we increment our pointers (`rdi` and `rsi` registers) and
+perform check for the null symbol (`'\0'`). If there is a end of string (the null symbol is in the `dl` register), we exit the loop, pop old `rsi` pointer (which we pushed onto the stack right before the loop) into `rax` and return from the function,
+otherwise we just continue the loop.
+
+The source string address is passed through the `rdi` and the destination register is in the `rsi` register. The destination
+string length is passed through the `rdx` register.
+
+```asm
+string_copy:
+    push rdi
+    push rsi
+    push rdx
+    call string_length
+    pop rdx
+    pop rsi
+    pop rdi
+
+    cmp rax, rdx
+    jae .too_long  ; we also need to store null-terminator
+
+    push rsi
+
+        .loop:
+        mov dl, byte[rdi]
+        mov byte[rsi], dl
+        inc rdi
+        inc rsi
+        test dl, dl
+        jnz .loop
+
+    pop rax
+    ret
+
+    .too_long:
+    xor rax, rax
+    ret
 ```
 
 ## TODO
