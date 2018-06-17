@@ -71,8 +71,7 @@ we are a user of this code, not writer. Another advantage is that we allow `prin
 because we saved it, and our `rdi` is actually a pointer to *our* stack which `print_string` can't manipulate at all. We should
 restore the stack state after the job is done, so we `pop rdi` after calling the `print_string`.
 
-The source character (function argument) is passed through the `rdi` register. The function returns `void` in C-terminology, which
-means it returns nothing (it is a procedure).
+The source character (function argument) is passed through the `rdi` register. The function returns `void` in C-terminology, which means it returns nothing (it is a procedure).
 
 print_char:
     push rdi
@@ -80,6 +79,68 @@ print_char:
     call print_string 
     pop rdi
     ret
+    
+## Define `print_uint` function
+
+Printing number is a little bit tricky thing. People familiar with C may know how to convert a number into string, because
+it is very simple algorithm:
+
+1. Get the source number.
+2. Get the latest digit by taking a remainder of division by 10.
+3. For converting it to ASCII-character, we simply [add `0x30` (or 48)](https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html) to it.
+4. Pushing it into an array, in reverse order, so that if we continue further, we will be able to read it in correct order.
+
+Here, in assembly language, the basics are the same, but the implementation is of course, different in many ways. We will need a loop, of course, as same as we will need taking a remainder of division by 10 but we will not use any arrays. We will allocate
+on stack and modify the contents right in there, and pass the pointer to the stack.
+
+Let's start with copying `rdi` into `rax` because we will need to modify the `rdi` register later. Then, we need to keep current
+`rsp` address in `rdi` because it will point to the end of our number's string representation on the stack later. We also will have to know the future string's ending, so we push `0` onto the stack marking it the end of the our string. Then we allocate
+16 bytes on the stack fr our string by `sub rsp, 16`. Remember, that the stack grows to lower addresses from higher addresses? That is why the use `sub` for allocation, we move the `rsp` (stack pointer) down to lower addresses by 16 bytes. We then prepare
+our division loop by pointing `rdi` to the first byte of our string on the stack and setting our divider into `r8` register.
+
+Our loop starts with reseting `rdx` so we are sure we don't have a garbage in it. Then we perform the division and add `0x30`
+via `or` command (a tricky-thing, yes). As you may know, applying bitwise or simply sets the bits in the source register, if
+they were not set before. We absolutely know that they were not set because *we* are the one who set the number by division, and
+it contains a number between 0 and 9 (between `0000` and `1001`) while `0x30` (48 in decimal) is `110000`, so we will never touch
+the number part of register.  Then, we decrement `rdi` (which points to stack, remember?) again and set the number we just calculated (digit + `0x30`) into the value currently pointed by `rdi` register. As the last step, we check whether the is zero
+after our manipulations (made by `div` instruction) and if it is, we exit the loop, otherwise we continue until it is zero.
+
+After our loop is finished, the `rdi` is pointed to the beginning of our new string on the stack, so we may safely call 
+`print_string` function (it accepts its source string argument through the `rdi`, remember?). As we are a good programmers and
+we don't want to blow up the stack and to interrupt the program execution, we must deallocate the stack (like `free` in C or 
+`delete` in C++ when you are manipulating the memory manually - as we did here with stack by `sub`), we use `add rsp, 24`. You
+may wonder why `24`, this is because you might forgot that we also added `0` onto the stack so we actually moved it by `8` and by `16` bytes during the function execution, which is `24`. We must delete it too, because we must restore the stack after our job is done, so we move the stack pointer up by `24` bytes and not `16`. We may have a useless number in the `rdi` register after our
+manipulations, so it is good to reset it. Note, that we could also do this by `xor` instruction, or we could store it on the stack before everything and then just pop it after, so the `print_uint` function user will keep the number in the `rdi`
+register untouched after the call.
+
+The source number (function argument) is passed through the `rdi` register. The function returns `void` in C-terminology, which means it returns nothing (it is a procedure).
+
+```asm
+print_uint:
+    mov rax, rdi
+    mov rdi, rsp
+    push 0
+    sub rsp, 16
+
+    dec rdi
+    mov r8, 10
+
+.loop:
+    xor rdx, rdx
+    div r8
+    or  dl, 0x30
+    dec rdi
+    mov [rdi], dl
+    test rax, rax
+    jnz .loop
+
+    call print_string
+
+    add rsp, 24
+    mov rdi, 0
+    ret
+
+```
     
 ## TODO
 ## Write other functions
