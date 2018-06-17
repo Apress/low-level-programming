@@ -220,7 +220,7 @@ already told in `print_uint` function, this will work exactly as we want it to b
 For example, we have a `2` digit in the string and we want to convert it into a number. We found, that `2` character's code,
 according to the **ASCII table** is `50` or `0x32` in hex. To get a number from it, we must subtract `'0'` code or `0x30` from
 it. Of course we could do this via `sub` instruction, but we are cool programmers and we will operate on bits in the byte.
-If we look at `2`, we will see it's binary representation: `110010`. If we set first (highest) two bits to `0`, we will get a
+If we look at `2`, we will see its binary representation: `110010`. If we set first (highest) two bits to `0`, we will get a
 `000010` number which is our number we want so much. We can do this via a `1111` (`0x0f` mask and `and` instruction, so we reset 
 two highest bits to zero by `and r9b, 0x0f`:
 
@@ -297,6 +297,36 @@ parse_int:
     .error:
     xor rax, rax
     ret
+```
+
+## Define `string_equals` function
+
+This function would be equal to one in C: compare two strings byte-after-byte, if any of bytes differs, return false, otherwise
+return true.
+
+We start with copying the first byte of `rdi` register into `al` register (`rax`'s lowest byte part) and comparing it after to
+one in `rsi` register. If `zf` flag of `rflags` is set then the bytes are equal and we continue our process, otherwise we jump
+to the `.no` label which simply sets `rax` to `0` and returns from the function. To continue our process, we must increment both
+`rdi` and `rsi` addresses to make them point to the next byte. After that we check our exit condition - if the byte of string
+passed in the `rdi` register is `\0`, we return `1`, otherwise we continue the iteration. This check is done via `test al, al` and `jnz string_equals` lines.
+
+The source string addresses (function arguments) are passed through the `rdi` and `rsi` registers. The result is either `1` or
+`0` and returned in the `rax` register working like `bool` function - if two strings are equal, `1` is returned, `0` otherwise.
+
+```asm
+string_equals:
+    mov al, byte [rdi]
+    cmp al, byte [rsi]
+    jne .no
+    inc rdi
+    inc rsi
+    test al, al
+    jnz string_equals
+    mov rax, 1
+    ret
+    .no:
+    xor rax, rax
+    ret 
 ```
 
 ## TODO
