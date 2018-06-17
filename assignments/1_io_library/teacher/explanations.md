@@ -349,7 +349,7 @@ register) and then we copy it into the byte pointed by the `rsi` register. This 
 perform check for the null symbol (`'\0'`). If there is a end of string (the null symbol is in the `dl` register), we exit the loop, pop old `rsi` pointer (which we pushed onto the stack right before the loop) into `rax` and return from the function,
 otherwise we just continue the loop.
 
-The source string address is passed through the `rdi` and the destination register is in the `rsi` register. The destination
+The source string address is passed through the `rdi` and the destination string is in the `rsi` register. The destination
 string length is passed through the `rdx` register.
 
 ```asm
@@ -383,8 +383,274 @@ string_copy:
     ret
 ```
 
-## TODO
-## Write other functions
+## Define `read_word` function
+
+Now we are ready to write the most complex one, `read_word` function. The idea though is very simple - just read chars in a loop
+until any white-space character is met. However, its implementation in the assembly language is quite complex. We will even touch
+the `r14` and `r15` registers, use *4* labels. But nevertheless, the algorithm implemented is quite simple and there is just
+many instructions in it, nothing really difficult there.
+
+The allege that our function accepts a pointer to destination string where we will put the word read and the destination string
+size which we must not exceed. If the word's length exceed the desination string's length, we exit from the function. If it is
+not, we put the new string into the `rax` register and its actual length into the `rdx` register. The word separator is, of
+course, the whitespace characters. We treat ones as *space*, *tabulation* and *new line* characters.
+
+The implementation starts with saving `r14` and `r15` registers by pushing both of them onto the stack. We will use the `r14`
+register as word's length counter and `r15` as our original destination string's length which we should never exceed. We prepare
+the state by decrementing `r15` so that we actually check the `(destination buffer length - 1)` value to exceed, because we
+must put a null symbol there, so we can only store `(destination buffer length - 1)` useful bytes there.
+
+You may find the code pointed by `.A` and `.B` labels almost equal. The difference is in jump table and the behavior: in `.A` we
+expect the input to start with non-whitespace character and we are stuck in the loop which starts from `.A` label unless there is
+a non-whitespace character (what signals that the word has started) while code in the `.B` loop does the opposite, it reads all
+the non-whitespace characters until there is a whitespace character, in other words, it reads the word, so the algorithm is this:
+
+1. Start with `.A` loop and read all the characters (by iterating in this loop) until we reach a non-whitespace character (the word start).
+2. After that, check whether there is a `EOF` (`'\0'` character) suddenly came then jump to `.C`. If not, continue from `.B`.
+3. If we continue from `.B`, we then read the word (characters in a loop) until we reach the first whitespace character, copying
+bytes into the `rdi` register with `r14` offset (remember that `r14` stores word's length?). We also check whether we exceeded
+the destination string's length or not, if we did, we go to `.D`.
+4. From all the code we may go to `.C` - this is our successful end: we put null symbol there into our destination string,
+set its actual length into the `rdx` register.
+
+The graph looks like:
+
+![The graph](read_word_call_graph.jpg)
+
+It would be much easier to understand if you change labels like this:
+
+- `.A` to `.skip_whitespace`.
+- `.B` to `.read_chars`.
+- `.C` to `.finish`.
+- `.D` to `.err`.
+
+The destination string address is passed through the `rdi` register and its length through the `rdx` register. The destination
+string length is passed through the `rdx` register. The real destination string length will be saved into `rdx` register and
+the string itself into the `rax` register.
+
+```asm
+read_word:
+    push r14
+    push r15
+    xor r14, r14 
+    mov r15, rsi
+    dec r15
+
+    .A:
+    push rdi
+    call read_char
+    pop rdi
+    cmp al, ' '
+    je .A
+    cmp al, 10
+    je .A
+    cmp al, 13
+    je .A 
+    cmp al, 9 
+    je .A
+    test al, al
+    jz .C
+
+    .B:
+    mov byte [rdi + r14], al
+    inc r14
+
+    push rdi
+    call read_char
+    pop rdi
+    cmp al, ' '
+    je .C
+    cmp al, 10
+    je .C
+    cmp al, 13
+    je .C 
+    cmp al, 9
+    je .C
+    test al, al
+    jz .C
+    cmp r14, r15
+    je .D
+
+    jmp .B
+
+    .C:
+    mov byte [rdi + r14], 0
+    mov rax, rdi 
+   
+    mov rdx, r14 
+    pop r15
+    pop r14
+    ret
+
+    .D:
+    xor rax, rax
+    pop r15
+    pop r14
+    ret
+```
+
+As a bonus to this function, we provide a simple utility for reading a word which you may compile as usual:
+
+```bash
+nasm -felf64 word.asm -o word.o -g
+ld -o word word.o
+```
+
+It will use most of the above functions to read a word and to output a human-readable string along with the exit code which will
+be equal to the word's length.
+
+The code of `word.asm`:
+
+```asm
+global _start
+
+section .data
+    you_entered_string: db "You entered: ", 0
+
+section .text
+	string_length:
+	    xor rax, rax
+	.loop:
+	    cmp byte [rdi + rax], 0
+	    je .end
+	    inc rax
+	    jmp .loop
+	.end:
+	    ret
+
+	print_string:
+	    ;; Push string address as argument for string_length
+	    call string_length
+
+	    ;; set string length
+	    mov rdx, rax
+	    ;; set string address
+	    mov rsi, rdi
+	    ;; set syscall number (write)
+	    mov rax, 1
+	    ;; set file descriptor (stdout)
+	    mov rdi, 1
+	    syscall
+
+	    ret
+
+	;; rdi - char address
+	print_char:
+	    push rdi
+	    ;; set string length
+	    mov rdx, 1
+	    ;; set string address
+	    mov rsi, rsp
+	    ;; set syscall number (write)
+	    mov rax, 1
+	    ;; set file descriptor (stdout)
+	    mov rdi, 1
+	    syscall
+
+	    pop rdi
+	    ret
+
+
+	read_char:
+	    push 0
+
+	    mov rax, 0
+	    mov rdi, 0
+	    mov rsi, rsp
+	    mov rdx, 1
+	    syscall
+
+	    pop rax
+
+	    ret
+
+	print_newline:
+	    mov rdi, 0x0a
+	    call print_char
+	    ret
+
+	read_word:
+	    push r14
+	    push r15
+	    xor r14, r14
+	    mov r15, rsi
+	    dec r15
+
+	    .skip_whitespace:
+	    push rdi
+	    call read_char
+	    pop rdi
+	    cmp al, ' '
+	    je .skip_whitespace
+	    cmp al, 10
+	    je .skip_whitespace
+	    cmp al, 13
+	    je .skip_whitespace
+	    cmp al, 9
+	    je .skip_whitespace
+	    test al, al
+	    jz .finish
+
+	    .read_chars:
+	    mov byte [rdi + r14], al
+	    inc r14
+
+	    push rdi
+	    call read_char
+	    pop rdi
+	    cmp al, ' '
+	    je .finish
+	    cmp al, 10
+	    je .finish
+	    cmp al, 13
+	    je .finish
+	    cmp al, 9
+	    je .finish
+	    test al, al
+	    jz .finish
+	    cmp r14, r15
+	    je .err
+
+	    jmp .read_chars
+
+	    .finish:
+	    mov byte [rdi + r14], 0
+	    mov rax, rdi
+
+	    mov rdx, r14
+	    pop r15
+	    pop r14
+	    ret
+
+	    .err:
+	    xor rax, rax
+	    pop r15
+	    pop r14
+	    ret
+
+    _start:
+       ;; Allocate 16 bytes on the stack
+        sub rsp, 16
+        mov rsi, 16
+        mov rdi, rsp
+        call read_word
+
+        push rdx
+        push rdx
+        push rax
+        mov rdi, you_entered_string
+        call print_string
+        pop rdi
+        call print_string
+        pop rdi
+        call print_newline
+        add rsp, 16
+
+        pop rdi
+        mov rax, 60
+        syscall
+        ret
+```
 
 # Recommendations
 
