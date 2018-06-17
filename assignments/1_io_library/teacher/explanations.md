@@ -191,6 +191,114 @@ read_char:
     ret 
 ```
 
+## Define `parse_uint` function
+
+This function is exactly what we would do in C for converting string into a number. The basic algorithm for C:
+
+1. Iterate over a string and check the argument is digit. This could be done via `isdigit` function or manually by checking that
+the character code is above than `0`'s characters code and less than `9`'s characters code. This can be done so easily because
+the [ASCII table](https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html) provides us with numbers in sequential
+manner: the `0`'s code is `48` (or `0x30`), the `1`'s code is `49` (or `0x31`) and so on.
+2. If the character is not a digit - exit with error or something like that, because we can't convert a string of text into a
+number.
+3. If it is a digit, we subtract `0x30` from the characters code and obtain a first digit.
+4. We set the number to have this digit in this manner:
+
+ > old number + just obtained digit * current offset from string + 1.
+ 
+In *asm* it is again, a little bit more difficult but the algorithm remains the same.
+ 
+We put a multiplier (`10`) into the `r8` register and initialize `rax` and `rcx` registers with zeros. We will store computed
+number in the `rax` register and we will use `rcx` as a counter (like `i` in `for (int i = 0; i < string_length; ++i)`).
+
+Our loop starts with moving the `rcx`h byte of the source string into `r9` with **zero extension** (it is copying of lower-sized
+register into wider one with filling all the other bits with zero). It is done so for letting us performing operations with it
+correctly. After copying a byte, we compare the register's value to `0`'s code and then to `9` code. If this byte of our string
+is not in the range, we go to the `.end` label what means we had errorneous situation. If it is in the range, we continue our
+loop by multiplying `rax` by `10` (stored in the `r8` register) with `mul r8` line. Right after that, we tricky subtract `0x30` from the current character's code resulting in something between `0` and `9` digits. This is done via `and` command. As we have
+already told in `print_uint` function, this will work exactly as we want it to because of how the numbers are stored in memory.
+For example, we have a `2` digit in the string and we want to convert it into a number. We found, that `2` character's code,
+according to the **ASCII table** is `50` or `0x32` in hex. To get a number from it, we must subtract `'0'` code or `0x30` from
+it. Of course we could do this via `sub` instruction, but we are cool programmers and we will operate on bits in the byte.
+If we look at `2`, we will see it's binary representation: `110010`. If we set first (highest) two bits to `0`, we will get a
+`000010` number which is our number we want so much. We can do this via a `1111` (`0x0f` mask and `and` instruction, so we reset 
+two highest bits to zero by `and r9b, 0x0f`:
+
+     110010
+       or
+     001111
+       ==
+     000010
+
+After obtaining a number, we add it to the `rax` register so that the `rax` contains a number which should be used later for multipling and setting next digits of the number. To continue our loop, we must increment `rcx` register. When the job is done,
+we will have a correct number in the `rax` register and its real length in the `rcx` register.
+ 
+The source string address (function argument) is passed through the `rdi` register. The function returns converted number in
+the `rax` register and in `rdx` - its length.
+
+```asm
+parse_uint:
+    mov r8, 10
+    xor rax, rax
+    xor rcx, rcx
+.loop:
+    movzx r9, byte [rdi + rcx] 
+    cmp r9b, '0'
+    jb .end
+    cmp r9b, '9'
+    ja .end
+    xor rdx, rdx 
+    mul r8
+    and r9b, 0x0f
+    add rax, r9
+    inc rcx 
+    jmp .loop 
+    .end:
+    mov rdx, rcx
+    ret
+```
+
+## Define `parse_int` function
+
+Now we are able to define `parse_int` function. Its idea is equal to what we have done in `print_int` function:
+
+1. We check whether the first string byte is equal to `'-'` (it means we have a negative integer passed as argument).
+2. If it is not `'-'`, we simply jump to `parse_uint` label continuing the execution from there as we don't need to do anything
+else here.
+3. If it is `'-'`, we have to parse the *uint* part of it and then simply negate the computed by `parse_uint` value.
+
+Sounds pretty simple, right?
+
+In the beginning we set the `al` part of `rax` register to first byte from the `rdi` register and compare to `'-'` character
+code. If it is equal to it, we jump to the `.signed` label, otherwise we jump to `parse_uint` label and continue our execution
+from there. In code which starts from `.signed` label we move `rdi` by one byte further so that if we pass it to the `parse_uint`
+function, it will not have `-` in it. Then we perform a call to the `parse_uint` function which returns a value into `rax` and `rdx` registers, negate the computed value (set its sign to negative one), check that it is a correct number by checking the
+length of it in stored in the `rdx` register and if everything is okay, we increment this length (`rdx`) because we have `'-'`.
+
+The source string address (function argument) is passed through the `rdi` register. The function returns converted number in
+the `rax` register and in `rdx` - its length.
+
+```asm
+parse_int:
+    mov al, byte [rdi]
+    cmp al, '-'
+    je .signed
+    jmp parse_uint
+.signed:
+    inc rdi
+    call parse_uint
+    neg rax
+    test rdx, rdx
+    jz .error
+
+    inc rdx
+    ret
+
+    .error:
+    xor rax, rax
+    ret
+```
+
 ## TODO
 ## Write other functions
 
