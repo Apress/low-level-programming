@@ -146,7 +146,51 @@ print_uint:
     ret
 
 ```
-    
+
+## Define `print_int` function
+
+This should be very simple. We check whether this is a signed number passed or not. If it is signed, we print `-` character
+and then call `print_uint` function with negated value. To negate value, we use `neg` instruction, which simply changes number's
+sign from negative to positive and vice versa. You will not find a `call` instruction here and a line `call print_uint` because
+this is unnecessary: we don't need to do anything else in the `print_int` function, so we simply continue working from the
+`print_uint` label, it will do all the rest.
+
+The source number (function argument) is passed through the `rdi` register. The function returns `void` in C-terminology, which means it returns nothing (it is a procedure).
+
+```asm
+print_int:
+    test rdi, rdi
+    jns print_uint
+    push rdi
+    mov rdi, '-'
+    call print_char
+    pop rdi
+    neg rdi
+    jmp print_uint
+```
+
+## Define `read_char` function
+
+To read a char from `stdin`, we must perform `read` system call. Its arguments are exactly the same as in `write` system call.
+As we need a char only, it is sufficient to allocate a single integer there by `push 0`. Then we perform system call which is
+returned back to the userspace when we have a single char in a buffer what is our main goal here. As a last step, we have to
+clean the stack and return the number in `rax` register, and we do this via a single instruction - `pop rax` which pops the
+topmost value from the stack into the `rax` register.
+
+The function has no input parameters. It returns read char in the `rax` register.
+
+```asm
+read_char:
+    push 0
+    xor rax, rax
+    xor rdi, rdi
+    mov rsi, rsp 
+    mov rdx, 1
+    syscall
+    pop rax
+    ret 
+```
+
 ## TODO
 ## Write other functions
 
