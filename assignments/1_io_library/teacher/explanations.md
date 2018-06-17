@@ -204,7 +204,7 @@ number.
 3. If it is a digit, we subtract `0x30` from the characters code and obtain a first digit.
 4. We set the number to have this digit in this manner:
 
- > old number + just obtained digit * current offset from string + 1.
+    > old number + just obtained digit * current offset from string + 1.
  
 In *asm* it is again, a little bit more difficult but the algorithm remains the same.
  
