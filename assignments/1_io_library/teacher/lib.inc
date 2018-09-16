@@ -1,5 +1,10 @@
 section .text
 
+exit: 
+    xor rdi, rdi
+    mov rax, 60
+    syscall
+
 string_length:
     xor rax, rax
 .loop:
