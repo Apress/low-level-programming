@@ -9,16 +9,16 @@ section .code
 unwind:
     push rbx
 
-; while (rbx > fptr) { 
+    ; while (rbx > fptr) { 
     ;     print rbx; rbx = [rbx];
     ; }
     mov rbx, rbp 
     .loop:
-    cmp rbx,fptr ; check if pointing fptr or lower
+    cmp rbx, [rel fptr wrt ..got] ; check if pointing fptr or lower
     jc .end
     mov rdi, format
     mov rsi, rbx
-    call printf
+    call printf wrt ..plt
     mov rbx, [rbx]
     jmp .loop 
 
