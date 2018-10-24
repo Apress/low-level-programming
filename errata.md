@@ -156,6 +156,14 @@ Should be:
 
 Both `0branch` and `branch` are compile-only.
 
+### Page 130, Section 8.1
+
+**Warnings are errors** it is very bad practice to ship code that ~~does not~~ compiles with warnings. Warnings are emitted for a reason. Source code should always compile without any errors or warnings before it is shipped.
+
+### Page 133, Section 8.2
+
+**Static typing** means that all types are known ~~in~~ at compile time. There can be ~~absolutely incertitude~~ absolute certainty about data types.
+
 ### Page 137, Section 8.3.5 
 
 Then, as the break is not ending this case, after executing the first
