@@ -11,7 +11,7 @@ _start:
     mov     rdx, 14          ; string length in bytes
     syscall
 
-	mov     rax, 60          ; 'exit' syscall number
+    mov     rax, 60          ; 'exit' syscall number
     xor     rdi, rdi
     syscall                       
     
