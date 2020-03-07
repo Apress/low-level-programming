@@ -276,7 +276,7 @@ tests=[ Test('string_length',
         mov rax, 60
         xor rdi, rdi
         syscall""", 
-        lambda i, o, r: first_or_empty(i) == o),
+        lambda i, o, r: i == o),
 
         Test('read_word_length',
              lambda v:"""
@@ -295,7 +295,7 @@ tests=[ Test('string_length',
         mov rax, 60
         mov rdi, rdx
         syscall""", 
-        lambda i, o, r: len(first_or_empty(i)) == r or len(first_or_empty(i)) > 19),
+        lambda i, o, r: len(i) == r or len(i) > 19),
 
         Test('read_word_too_long',
              lambda v:"""
@@ -314,7 +314,7 @@ tests=[ Test('string_length',
         mov rdi, rax
         mov rax, 60
         syscall""", 
-        lambda i, o, r: ( (not len(first_or_empty(i)) > 19) and r != 0 ) or  r == 0 ),
+        lambda i, o, r: ( (not len(i) > 19) and r != 0 ) or  r == 0 ),
 
         Test('parse_uint',
              lambda v: """section .data
@@ -440,7 +440,7 @@ inputs= {'string_length'
          'read_char'            
          : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world' ],
          'read_word'            
-         : ['-1'], # , '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world' ],
+         : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world' ],
          'read_word_length'     
          : ['-1', '-1234asdasd5234121', '', '   ', '\t   ', 'hey ya ye ya', 'hello world' ],
          'read_word_too_long'     
