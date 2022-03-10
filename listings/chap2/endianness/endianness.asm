@@ -2,8 +2,11 @@ section .data
 
 newline_char: db 10
 codes: db '0123456789abcdef'
+demo1: dq 0x1122334455667788
+demo2: db 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
 global _start                       
                                      
+section .text
 
 print_newline:
     mov rax, 1
@@ -38,12 +41,6 @@ iterate:
 	jnz iterate   
     
     ret	
-
-section .data
-demo1: dq 0x1122334455667788
-demo2: db 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
-
-section .text
 
 _start:
     mov rdi, [demo1]
