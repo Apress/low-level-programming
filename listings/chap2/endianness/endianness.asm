@@ -3,7 +3,8 @@ section .data
 newline_char: db 10
 codes: db '0123456789abcdef'
 global _start                       
-                                     
+
+section .text
 
 print_newline:
     mov rax, 1
