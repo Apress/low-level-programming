@@ -56,6 +56,10 @@ CISC (~~Complete~~ Complex Instruction Set Computer)
 
 "~~Use `print_string` routine...~~": the entire list item should be removed.
 
+### Page 67, Section 5.1.4. 
+
+"%ifdef ~~`flag`~~": should be replaced with `myFlag` in "-d myflag"
+
 ### Page 67, Section 5.1.5. 
 
 "... will also accept ~~`rip` and~~ `rflags` register~~s~~."
