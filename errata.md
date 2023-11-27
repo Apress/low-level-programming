@@ -29,6 +29,10 @@ there.
 
 To prevent confusion: `rip` and `rflags` are not general purpose registers, although they are shown on this figure. The name should be "general purpose registers, `rip` and `rflags`".
 
+### Page 29, Section 2.5.1
+
+Instead of `7 6 5 4 3 2 1 0, 16 15 14 13 12 11 10 9 8`, should be `7 6 5 4 3 2 1 0, 15 14 13 12 11 10 9 8`.
+
 ### Page 35, Section 2.7.
 
 * In the table showing all functions to implement, `string_copy` should be placed after `string_length`. 
