@@ -166,6 +166,14 @@ Then, as the break is not ending this case, after executing the first
 
 "3. as ..." should be "3. * as ..."
 
+### Page 169, Section 9.2.2
+
+Missing `union` before `dword`. Should be:
+
+```
+union dword test;
+```
+
 ### Page 171, Section 9.2.4
 
 "... similar to how ~~DEFINE~~ `#define` works"
